@@ -600,8 +600,5 @@ export const serviceMap = {
     team: [],
   },
 };
-<<<<<<< HEAD
    
-=======
 
->>>>>>> a98f6226853ddfa6e0c40ec660bd8dbe655890ad
