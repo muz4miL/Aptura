@@ -6,27 +6,33 @@ import { FaWhatsapp, FaMagnifyingGlassLocation } from "react-icons/fa6";
 
 const FooterMain = () => {
   return (
-    <footer className="bg-white text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32 border-t border-gray-200">
-      <div className="flex flex-wrap justify-between gap-12 md:gap-6">
-        {/* Left Section - Logo and Socials */}
+    <footer className="relative bg-[#050507] text-[#94a3b8] pt-16 px-6 md:px-16 lg:px-24 xl:px-32 border-t border-white/5 overflow-hidden">
+      {/* Giant watermark */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none select-none">
+        <span className="text-[8rem] md:text-[14rem] lg:text-[18rem] font-heading font-bold text-white/[0.02] leading-none tracking-tight">
+          APTURA
+        </span>
+      </div>
+
+      <div className="relative z-10 flex flex-wrap justify-between gap-12 md:gap-6">
+        {/* Left Section */}
         <div className="max-w-80">
-          <h1 className="text-black font-bold text-2xl">Aptura Tech</h1>
-          <p className="text-sm mt-2">
-            We build modern, scalable, and intelligent solutions that drive real
-            value. Empowering businesses through cutting-edge technology and
-            expert services.
+          <h1 className="text-white font-heading font-bold text-2xl gradient-text">
+            Aptura Tech
+          </h1>
+          <p className="text-sm mt-2 text-[#94a3b8]">
+            Engineering intelligent software, AI systems, and digital products
+            that give ambitious businesses their unfair advantage.
           </p>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-3 mt-4 text-gray-700">
-            {/* LinkedIn */}
+          <div className="flex items-center gap-3 mt-4 text-[#94a3b8]">
             <a
               href="https://www.linkedin.com/company/aptura-tech-solutions/"
               target="_blank"
               rel="noopener noreferrer"
             >
               <svg
-                className="w-6 h-6 hover:text-blue-700 transition"
+                className="w-6 h-6 hover:text-[#00f0ff] transition"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -38,23 +44,22 @@ const FooterMain = () => {
 
         {/* Expertise */}
         <div>
-          <p className="text-lg text-gray-800 font-medium">Expertise</p>
+          <p className="text-lg text-white font-heading font-medium">
+            Expertise
+          </p>
           <ul className="mt-3 flex flex-col gap-2 text-sm">
             {[
               { name: "Web Development", path: "/service/web-development" },
               { name: "App Development", path: "/service/mobile-apps" },
               { name: "UI/UX Design", path: "/service/ui-ux" },
               { name: "Cyber Security", path: "/service/cybersecurity" },
-              {
-                name: "Artificial Intelligence",
-                path: "/service/ai",
-              },
+              { name: "Artificial Intelligence", path: "/service/ai" },
               { name: "Internet Of Things (IoT)", path: "/service/iot" },
             ].map((item) => (
               <li key={item.name}>
                 <Link
                   href={item.path}
-                  className="hover:text-blue-600 transition"
+                  className="hover:text-[#00f0ff] transition"
                 >
                   {item.name}
                 </Link>
@@ -65,7 +70,7 @@ const FooterMain = () => {
 
         {/* Company */}
         <div>
-          <p className="text-lg text-gray-800 font-medium">Company</p>
+          <p className="text-lg text-white font-heading font-medium">Company</p>
           <ul className="mt-3 flex flex-col gap-2 text-sm">
             {[
               { name: "About Us", path: "/about" },
@@ -76,7 +81,7 @@ const FooterMain = () => {
               <li key={item.name}>
                 <Link
                   href={item.path}
-                  className="hover:text-blue-600 transition"
+                  className="hover:text-[#00f0ff] transition"
                 >
                   {item.name}
                 </Link>
@@ -87,40 +92,41 @@ const FooterMain = () => {
 
         {/* Contact */}
         <div className="max-w-80">
-          <h3 className="text-lg text-gray-800 mb-2 font-medium">Contact Us</h3>
-          <p className="text-sm text-gray-500 mb-4">
+          <h3 className="text-lg text-white font-heading mb-2 font-medium">
+            Contact Us
+          </h3>
+          <p className="text-sm text-[#94a3b8] mb-4">
             Reach out to us for collaboration or queries.
           </p>
 
-          <div className="space-y-4 text-sm text-gray-800">
-            {/* Location */}
+          <div className="space-y-4 text-sm text-[#94a3b8]">
             <div className="flex items-start gap-3">
-              <FaMagnifyingGlassLocation className="text-blue-600 text-xl mt-1" />
+              <FaMagnifyingGlassLocation className="text-[#00f0ff] text-xl mt-1" />
               <p>Peshawar, Pakistan</p>
             </div>
           </div>
         </div>
       </div>
 
-      <hr className="border-gray-300 mt-8" />
+      <hr className="border-white/10 mt-8 relative z-10" />
 
       {/* Bottom Row */}
-      <div className="flex flex-col md:flex-row gap-2 items-center justify-between py-5 text-xs">
+      <div className="relative z-10 flex flex-col md:flex-row gap-2 items-center justify-between py-5 text-xs">
         <p>
           &copy; {new Date().getFullYear()}{" "}
-          <Link href="/" className="hover:text-blue-600">
+          <Link href="/" className="hover:text-[#00f0ff]">
             Aptura Tech Solutions
           </Link>
           . All rights reserved.
         </p>
         <ul className="flex items-center gap-4">
           <li>
-            <Link href="/about" className="hover:text-blue-600">
+            <Link href="/about" className="hover:text-[#00f0ff]">
               About
             </Link>
           </li>
           <li>
-            <Link href="/contact" className="hover:text-blue-600">
+            <Link href="/contact" className="hover:text-[#00f0ff]">
               Contact
             </Link>
           </li>

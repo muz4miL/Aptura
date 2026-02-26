@@ -1,48 +1,42 @@
 "use client";
 
-import { useState } from "react";
-
-const tabs = ["Expert areas"];
-
-const ExpertiseRight = ({ name, desc, expArea }) => {
-  const [activeTab, setActiveTab] = useState("Expert areas");
-
+const ExpertiseRight = ({ name, tagline, desc, expArea }) => {
   return (
-    <div className="max-w-full bg-[#f4f8ff] lg:pl-40 md:pl-40 sm:pl-10 sm:py-20 pr-10 flex flex-col justify-center">
-      <h2 className="text-3xl font-medium tracking-wide text-[#121212] mb-4">
+    <div className="max-w-full bg-[#0f1115] lg:pl-40 md:pl-40 sm:pl-10 sm:py-20 pr-10 flex flex-col justify-center">
+      {/* Tagline badge */}
+      {tagline && (
+        <div className="flex items-center gap-3 mb-5">
+          <div className="h-px w-8 bg-[#00f0ff]/50" />
+          <span className="text-[#00f0ff] font-mono text-xs tracking-[0.25em] uppercase">
+            {tagline}
+          </span>
+        </div>
+      )}
+
+      <h2 className="text-4xl font-heading font-bold tracking-tight text-white mb-4">
         {name}
       </h2>
-      <p className="text-[#777f8f] font-extralight text-lg mb-6 max-w-lg leading-8">
-        {desc}
-      </p>
+      <p className="text-[#94a3b8] text-lg mb-8 max-w-lg leading-8">{desc}</p>
 
-      <div className="flex space-x-6 border-b border-gray-300 mb-4">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`pb-2 font-semibold text-md tracking-wide transition-all duration-300 ${
-              activeTab === tab
-                ? "border-b-2 border-blue-600 text-blue-600"
-                : "text-[#777f8f]"
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
+      {/* Capabilities label */}
+      <div className="flex items-center gap-3 mb-4">
+        <span className="text-white/40 font-mono text-[0.7rem] tracking-[0.2em] uppercase">
+          Capabilities
+        </span>
+        <div className="flex-1 h-px bg-white/10" />
       </div>
 
-      {activeTab === "Expert areas" && (
-        <ul className="list-disc pl-5 space-y-3 marker:text-blue-700 marker:text-xl">
-          {expArea.map((item, idx) => (
-            <li key={idx}>
-              <span className="hover:text-blue-700 transition-all duration-300 text-gray-500 text-lg">
-                {item}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+      {/* Capability pills */}
+      <div className="flex flex-wrap gap-2">
+        {expArea.map((item, idx) => (
+          <span
+            key={idx}
+            className="px-4 py-2 rounded-full text-sm text-[#94a3b8] border border-white/10 hover:border-[#00f0ff]/40 hover:text-[#00f0ff] hover:bg-[#00f0ff]/5 transition-all duration-300 cursor-default"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
     </div>
   );
 };

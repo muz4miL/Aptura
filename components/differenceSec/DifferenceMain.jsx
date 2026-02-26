@@ -5,10 +5,14 @@ import DifferenceMid from "./DifferenceMid";
 
 const DifferenceMain = () => {
   return (
-    <div className="bg-[#000122] h-full w-full d-flex flex-col px-25 sm:px-10 py-20">
-      <DifferenceTop />
-      <DifferenceMid />
-    </div>
+    <section className="relative bg-[#050507] w-full overflow-hidden">
+      {/* Subtle grid overlay */}
+      <div className="absolute inset-0 grid-overlay pointer-events-none" />
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-28 sm:py-20">
+        <DifferenceTop />
+        <DifferenceMid />
+      </div>
+    </section>
   );
 };
 

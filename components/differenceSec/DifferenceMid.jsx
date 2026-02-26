@@ -7,23 +7,24 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const text =
-  "Where insight meets innovation, our solutions go beyond the surface to spark lasting transformation.";
+  "We don't just build software — we architect competitive advantages that compound over time.";
 
 const DifferenceMid = () => {
   const textRef = useRef(null);
 
   useEffect(() => {
     const words = gsap.utils.toArray(".glow-word");
-    gsap.set(words, { opacity: 0.2 });
+    gsap.set(words, { opacity: 0.15 });
 
     gsap.to(words, {
       opacity: 1,
-      stagger: 0.1,
+      color: "#ffffff",
+      stagger: 0.08,
       scrollTrigger: {
         trigger: textRef.current,
         toggleActions: "restart pause reverse pause",
-        start: "top 90%",
-        end: "bottom 50%",
+        start: "top 85%",
+        end: "bottom 45%",
         scrub: true,
       },
     });
@@ -32,13 +33,13 @@ const DifferenceMid = () => {
   return (
     <div>
       <h1
-        className="text-white w-full lg:text-5xl md:text-5xl sm:text-3xl lg:leading-20 md:leading-20 sm:leading-10"
+        className="text-white/20 w-full font-heading font-bold lg:text-6xl md:text-5xl sm:text-3xl lg:leading-[1.2] md:leading-[1.3] sm:leading-[1.4] tracking-tight"
         ref={textRef}
       >
         {text.split(" ").map((word, i) => (
           <span
             key={i}
-            className="glow-word inline-block mr-2 transition duration-300"
+            className="glow-word inline-block mr-3 transition duration-300"
           >
             {word}
           </span>

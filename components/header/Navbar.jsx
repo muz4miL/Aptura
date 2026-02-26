@@ -22,80 +22,78 @@ import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 
 const menuData = {
-  "Our Expertise": [
+  Solutions: [
     {
       label: "Web Development",
-      description:
-        "Our experts work on various tech stacks, including MERN and Laravel",
+      description: "Full-stack apps with MERN, Next.js & Laravel",
       icon: <FaCode />,
     },
     {
       label: "App Development",
-      description: "React Native, Swift, Kotlin, Express",
+      description: "Native & cross-platform mobile experiences",
       icon: <FaMobileAlt />,
     },
     {
       label: "Artificial Intelligence",
-      description: "Mathematical Model, NLP, Advanced Python",
+      description: "LLMs, NLP, computer vision & predictive AI",
       icon: <FaBrain />,
     },
     {
       label: "CyberSecurity",
-      description: "Vulnerability Assessment, Pentesting, Security",
+      description: "Pentesting, audits & zero-trust architecture",
       icon: <FaShieldAlt />,
     },
     {
       label: "UI/UX Design",
-      description: "Figma, Wireframe, Complete Web and App designs",
+      description: "Research-driven interfaces that convert",
       icon: <FaPencilRuler />,
     },
     {
       label: "IOT",
-      description: "Our Experts also work on IOT technologies",
+      description: "Connected devices & real-time data pipelines",
       icon: <FaMicrochip />,
     },
   ],
-  "How We Work": [
+  Process: [
     {
       label: "Our Methodology",
-      description: "Our company uses Agile and Scrum methodologies",
+      description: "Agile sprints, transparent delivery",
       icon: <FaProjectDiagram />,
     },
     {
       label: "Development Approach",
-      description:
-        "We follow a structured process focused on planning, collaboration, and continuous improvement.",
+      description: "Plan → Build → Ship → Iterate",
       icon: <FaCogs />,
     },
     {
       label: "Idea to Launch",
-      description: "From concept to deployment",
+      description: "From napkin sketch to production",
       icon: <FaRocket />,
     },
   ],
-  "Who We Are": [
+  Company: [
     {
       label: "About Us",
-      description: "Our people and values.",
+      description: "Our mission, values & story.",
       icon: <FaBuilding />,
     },
     {
       label: "Our Team",
-      description: "Our problem-solvers and tech minds.",
+      description: "Engineers, designers & strategists.",
       icon: <FaUsers />,
     },
     {
       label: "Careers",
-      description: "Our job opportunities, benefits, and company culture.",
+      description: "Join the team — open roles.",
       icon: <FaBriefcase />,
     },
     {
       label: "News",
-      description: "Our latest updates.",
+      description: "Latest from Aptura.",
       icon: <FaBriefcase />,
     },
   ],
-  "Case Studies": [],
+  Work: [],
 };
 
 const getPath = (item) => {
@@ -124,7 +122,7 @@ const getPath = (item) => {
       return "/team";
     case "careers":
       return "/careers";
-    case "case studies":
+    case "work":
       return "/case-studies";
     case "news":
       return "/news";
@@ -180,7 +178,7 @@ const Navbar = () => {
   };
 
   const handleMenuEnter = (label) => {
-    if (label === "Case Studies") return;
+    if (label === "Work") return;
     handleMouseEnter();
     clearTimeout(timeoutRef.current);
     setActiveMenu(label);
@@ -199,43 +197,40 @@ const Navbar = () => {
   };
 
   const bgClass =
-    isHome && !(activeMenu || isHovered || isScrolled || !showHeader)
-      ? "bg-transparent text-white"
-      : "bg-white text-black";
+    activeMenu || isHovered || isScrolled ? "glass-card" : "bg-transparent";
 
   const buttonClass =
-    isHovered || showHeader
-      ? "bg-blue-600 hover:bg-blue-800 text-white"
-      : "bg-white/10 hover:bg-blue-600 text-white border border-white";
+    "bg-gradient-to-r from-[#00f0ff] to-[#0066ff] text-[#050507] font-semibold glow-btn";
 
   return (
     <header
-      className={`w-full fixed top-0 z-40 lg:px-20 sm:px-6 py-4 transition-all duration-300 ${
+      className={`w-full fixed top-0 z-40 lg:px-20 sm:px-6 py-3 transition-all duration-500 text-white ${
         showHeader ? "translate-y-0" : "-translate-y-full"
       } ${bgClass}`}
     >
       <div className="max-w-[1300px] mx-auto flex items-center justify-between h-16 sm:h-[70px]">
+        {/* Logo */}
         <div
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-2.5 cursor-pointer"
           onClick={() => router.push("/")}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Logo placeholder — replace with your Aptura logo */}
           <Image
-            src="/logo.png"
+            src="/logo-rembg.png"
             alt="Aptura Tech Solutions Logo"
-            width={88}
-            height={88}
-            className="rounded-full object-cover"
+            width={40}
+            height={40}
+            className="object-contain logo-glow"
           />
-          <span className="text-xl lg:block sm:block sm:text-2xl md:hidden font-bold">
+          <span className="text-xl lg:block sm:block sm:text-2xl md:hidden font-heading font-bold gradient-text">
             Aptura
           </span>
         </div>
 
+        {/* Desktop Nav */}
         <nav className="hidden md:block z-50 relative">
-          <ul className="flex items-center gap-8 text-base font-medium">
+          <ul className="flex items-center gap-8 text-[15px] font-medium tracking-wide">
             {Object.entries(menuData).map(([label, submenu]) => (
               <li
                 key={label}
@@ -243,44 +238,55 @@ const Navbar = () => {
                 onMouseEnter={() => handleMenuEnter(label)}
                 onMouseLeave={handleMenuLeave}
               >
-                {label === "Case Studies" ? (
+                {label === "Work" ? (
                   <Link
                     href={getPath(label)}
-                    className="flex items-center cursor-pointer hover:text-blue-600 transition-all"
+                    className="flex items-center cursor-pointer text-white/80 hover:text-[#00f0ff] transition-all duration-200"
                   >
                     {label}
                   </Link>
                 ) : (
-                  <div className="flex items-center cursor-pointer hover:text-blue-600 transition-all">
+                  <div className="flex items-center cursor-pointer text-white/80 hover:text-[#00f0ff] transition-all duration-200">
                     {label}
-                    <MdArrowDropDown />
+                    <MdArrowDropDown className="ml-0.5 opacity-50" />
                   </div>
                 )}
 
-                {activeMenu === label && label !== "Case Studies" && (
+                {/* Mega dropdown */}
+                {activeMenu === label && label !== "Work" && (
                   <div
-                    className="fixed left-0 top-full w-full bg-white shadow-lg border-t border-gray-400 z-40"
+                    className="fixed left-0 top-full w-full z-40 animate-fade-in-down"
                     onMouseEnter={() => handleMenuEnter(label)}
                     onMouseLeave={handleMenuLeave}
                   >
-                    <div className="max-w-7xl mx-auto px-8 py-10 grid grid-cols-4 gap-8">
-                      <div className="col-span-3 grid grid-cols-3 gap-6">
-                        {submenu.map((section, idx) => (
-                          <div key={idx} className="space-y-2">
-                            <div className="flex items-center gap-2 text-blue-600">
-                              {section.icon}
-                              <Link
-                                href={getPath(section.label)}
-                                className="text-gray-900 font-medium hover:text-blue-600"
-                              >
-                                {section.label}
-                              </Link>
-                            </div>
-                            <p className="text-gray-500 text-sm">
-                              {section.description}
-                            </p>
-                          </div>
-                        ))}
+                    <div className="glass-card border-t border-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+                      <div className="max-w-6xl mx-auto px-8 py-8">
+                        <p className="text-[#00f0ff]/60 text-xs font-heading uppercase tracking-[0.25em] mb-6">
+                          {label}
+                        </p>
+                        <div
+                          className={`grid gap-4 ${submenu.length > 3 ? "grid-cols-3" : "grid-cols-3"}`}
+                        >
+                          {submenu.map((section, idx) => (
+                            <Link
+                              key={idx}
+                              href={getPath(section.label)}
+                              className="group flex items-start gap-3 p-3 rounded-lg hover:bg-white/[0.04] transition-all duration-200"
+                            >
+                              <div className="mt-0.5 text-[#00f0ff]/70 group-hover:text-[#00f0ff] transition-colors text-lg">
+                                {section.icon}
+                              </div>
+                              <div>
+                                <p className="text-white font-medium text-sm group-hover:text-[#00f0ff] transition-colors">
+                                  {section.label}
+                                </p>
+                                <p className="text-[#94a3b8]/80 text-xs mt-0.5 leading-relaxed">
+                                  {section.description}
+                                </p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -290,57 +296,66 @@ const Navbar = () => {
           </ul>
         </nav>
 
+        {/* CTA + Mobile Toggle */}
         <div className="flex items-center gap-3">
           <Link
             href="/contact"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className={`${buttonClass} cursor-pointer px-8 py-4 text-sm hidden md:block`}
+            className={`${buttonClass} cursor-pointer px-6 py-2.5 text-sm rounded-lg hidden md:block`}
           >
-            Send request
+            Get in Touch
           </Link>
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-3xl ml-2 focus:outline-none"
+            className="md:hidden text-3xl ml-2 focus:outline-none text-white/80"
           >
             {mobileOpen ? <HiX /> : <HiMenu />}
           </button>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white text-black px-4 py-6 shadow-lg border-t border-gray-200">
-          <ul className="flex flex-col gap-4">
+        <div className="md:hidden glass-card text-white px-5 py-6 shadow-2xl border-t border-white/5 mt-2 rounded-xl mx-2">
+          <ul className="flex flex-col gap-3">
             {Object.entries(menuData).map(([label, submenu]) => (
-              <li key={label} className="border-b border-gray-200 pb-3">
-                {label === "Case Studies" ? (
+              <li key={label} className="border-b border-white/5 pb-3">
+                {label === "Work" ? (
                   <Link
                     href={getPath(label)}
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-between text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors"
+                    className="flex items-center justify-between text-base font-medium text-white hover:text-[#00f0ff] transition-colors"
                   >
                     {label}
                   </Link>
                 ) : (
                   <>
                     <div
-                      className="flex items-center justify-between cursor-pointer text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors"
+                      className="flex items-center justify-between cursor-pointer text-base font-medium text-white hover:text-[#00f0ff] transition-colors"
                       onClick={() => toggleMobileMenu(label)}
                     >
                       {label}
-                      <MdArrowDropDown className="text-xl" />
+                      <MdArrowDropDown
+                        className={`text-xl transition-transform duration-200 ${
+                          activeMenu === label ? "rotate-180" : ""
+                        }`}
+                      />
                     </div>
 
                     {activeMenu === label && (
-                      <ul className="mt-3 pl-4 flex flex-col gap-2">
+                      <ul className="mt-3 pl-2 flex flex-col gap-1">
                         {submenu.map((item, idx) => (
                           <li key={idx}>
                             <Link
                               href={getPath(item.label)}
                               onClick={() => setMobileOpen(false)}
-                              className="block text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                              className="flex items-center gap-2 py-1.5 text-sm text-[#94a3b8] hover:text-[#00f0ff] transition-colors"
                             >
+                              <span className="text-[#00f0ff]/50 text-xs">
+                                {item.icon}
+                              </span>
                               {item.label}
                             </Link>
                           </li>
@@ -353,13 +368,13 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <div className="mt-6">
+          <div className="mt-5">
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md px-6 py-3 block text-center transition-colors"
+              className="w-full bg-gradient-to-r from-[#00f0ff] to-[#0066ff] text-[#050507] font-semibold rounded-lg px-6 py-3 block text-center glow-btn transition-all"
             >
-              Send Request
+              Get in Touch
             </Link>
           </div>
         </div>

@@ -52,11 +52,12 @@ const CursorDot = () => {
         left: 0,
         width: "8px",
         height: "8px",
-        backgroundColor: "blue",
+        backgroundColor: "#00f0ff",
         borderRadius: "50%",
         pointerEvents: "none",
         transform: "translate(-50%, -50%)",
         zIndex: 9999,
+        boxShadow: "0 0 8px rgba(0, 240, 255, 0.6)",
       }}
     />
   );

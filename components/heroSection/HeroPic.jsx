@@ -1,51 +1,119 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 
 const HeroPic = () => {
+  const btnRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (!btnRef.current) return;
+    const rect = btnRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btnRef.current.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
+  };
+
+  const handleMouseLeave = () => {
+    if (btnRef.current) {
+      btnRef.current.style.transform = "translate(0, 0)";
+    }
+  };
+
   return (
-    <div className="relative w-full h-screen overflow-hidden lg:px-10">
+    <div className="relative w-full h-screen overflow-hidden">
+      {/* Fullscreen video — the star of the show */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/videos/main-video.mp4" type="video/mp4" />
+        <source src="/heroVideo.mp4" type="video/mp4" />
       </video>
 
-      {/* Aptura Badge */}
-      <div className="absolute top-1/3 left-1/2 z-20 hidden lg:flex flex-col items-center -translate-x-1/2 -translate-y-1/2">
-        <div className="flex items-center gap-3 px-6 py-3">
-          <Image
-            src="/logo.png"
-            alt="Aptura Tech Solutions Logo"
-            width={72}
-            height={72}
-            className="object-contain"
-          />
-          <span className="text-white font-extrabold text-4xl">
-            Aptura Tech
-          </span>
+      {/* Gradient overlays — keep video visible but make bottom text area readable */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050507]/40 via-transparent to-[#050507]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/20 via-transparent to-[#050507]/20" />
+
+      {/* Content — pinned to bottom, minimal, doesn't fight the video */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 px-6 md:px-16 lg:px-24 pb-8 md:pb-14">
+        <div className="max-w-6xl mx-auto">
+          {/* Headline — large but clean */}
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] text-white"
+          >
+            Build What&apos;s <span className="gradient-text">Next</span>
+          </motion.h1>
+
+          {/* One-liner subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="text-white/60 text-sm sm:text-base md:text-lg max-w-xl mt-4 leading-relaxed"
+          >
+            Software, AI & digital experiences — engineered to scale.
+          </motion.p>
+
+          {/* CTA row */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.9 }}
+            className="flex flex-wrap gap-3 mt-6"
+          >
+            <Link
+              href="/contact"
+              ref={btnRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="px-7 py-3 bg-gradient-to-r from-[#00f0ff] to-[#0066ff] text-[#050507] font-heading font-semibold text-sm rounded-lg glow-btn transition-all duration-200"
+            >
+              Start a Project
+            </Link>
+
+            <Link
+              href="/case-studies"
+              className="px-7 py-3 border border-white/20 text-white/90 font-heading font-medium text-sm rounded-lg hover:border-[#00f0ff]/40 hover:bg-white/5 transition-all duration-300"
+            >
+              View Our Work
+            </Link>
+          </motion.div>
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-col justify-center lg:items-start md:items-start sm:items-center h-full lg:px-20 md:px-20 sm:px-2 text-white">
-        <div>
-          <h1 className="lg:text-5xl md:text-5xl sm:text-3xl sm:h-31 font-bold mb-4 lg:h-31 md:h-40 overflow-hidden lg:leading-17 md:leading-13 lg:w-full md:w-full sm:leading-10 sm:w-full">
-            <div className="animate-slideUpText">
-              FUELING DIGITAL DISRUPTION ACROSS TRANSFORMATIVE DOMAINS
-            </div>
-            <div className="animate-slideUpText">
-              CUSTOM SOFTWARE SOLUTIONS FOR BUSINESS GROWTH
-            </div>
-            <div className="animate-slideUpText">
-              AI-DRIVEN, CLOUD-POWERED, INDUSTRY-CHANGING
-            </div>
-          </h1>
+      {/* Marquee strip at the very bottom edge */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-0 left-0 right-0 z-10 overflow-hidden border-t border-white/5 bg-[#050507]/80 backdrop-blur-sm"
+      >
+        <div className="animate-marquee flex whitespace-nowrap py-2.5 text-white/30 font-heading text-[11px] uppercase tracking-[0.3em]">
+          {[...Array(3)].map((_, i) => (
+            <span key={i} className="flex items-center">
+              <span className="mx-6">Software Engineering</span>
+              <span className="mx-2 text-[#00f0ff]/30">◆</span>
+              <span className="mx-6">AI &amp; Machine Learning</span>
+              <span className="mx-2 text-[#00f0ff]/30">◆</span>
+              <span className="mx-6">Cloud Architecture</span>
+              <span className="mx-2 text-[#00f0ff]/30">◆</span>
+              <span className="mx-6">Cybersecurity</span>
+              <span className="mx-2 text-[#00f0ff]/30">◆</span>
+              <span className="mx-6">UI/UX Design</span>
+              <span className="mx-2 text-[#00f0ff]/30">◆</span>
+              <span className="mx-6">IoT Solutions</span>
+              <span className="mx-2 text-[#00f0ff]/30">◆</span>
+            </span>
+          ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import Navbar from "@/components/header/Navbar";
 import FooterMain from "@/components/footer/FooterMain";
 import CursorDot from "@/components/CursorDot";
 import ScrollToTop from "@/components/ScrollToTop";
+import AuroraBackground from "@/components/AuroraBackground";
 
 export const metadata = {
   title: {
@@ -49,9 +50,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="font-body antialiased">
-        <div className="flex flex-col">
+    <html lang="en" className="dark">
+      <body className="font-body antialiased bg-bg-deep text-text-main noise-overlay">
+        <AuroraBackground />
+        <div className="relative z-[2] flex flex-col min-h-screen">
           <ScrollToTop />
           <Navbar />
           <main className="flex-1 font-body">{children}</main>

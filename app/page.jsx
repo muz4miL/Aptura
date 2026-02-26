@@ -9,7 +9,7 @@ import UnlockComponent from "@/components/UnlockComponent";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 min-h-screen bg-[#001c3d] text-white">
+    <div className="flex flex-col flex-1 min-h-screen bg-transparent text-white">
       <CursorDot />
       <HeroMain />
       <DifferenceMain />
