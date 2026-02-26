@@ -181,114 +181,148 @@ const disciplines = [
   },
 ];
 
-/* ── Direction each card flies FROM (toward center) — no measurements needed ── */
-/* 3×2 grid: [col, row] → direction vector pointing from grid position toward center */
+/* ── Direction each card flies FROM (toward center) ── */
 const flyDirections = [
-  { x: 280, y: 120, rotate: -6 } /* top-left → flies from center-right-down */,
-  { x: 0, y: 150, rotate: 3 } /* top-center → flies from center-down */,
-  { x: -280, y: 120, rotate: 5 } /* top-right → flies from center-left-down */,
-  { x: 280, y: -120, rotate: 4 } /* bottom-left → flies from center-right-up */,
-  { x: 0, y: -150, rotate: -3 } /* bottom-center → flies from center-up */,
-  {
-    x: -280,
-    y: -120,
-    rotate: -5,
-  } /* bottom-right → flies from center-left-up */,
+  { x: 280, y: 120, rotate: -6 },
+  { x: 0, y: 150, rotate: 3 },
+  { x: -280, y: 120, rotate: 5 },
+  { x: 280, y: -120, rotate: 4 },
+  { x: 0, y: -150, rotate: -3 },
+  { x: -280, y: -120, rotate: -5 },
 ];
 
 /* ── Main Component ── */
 const ExpertiseMain = () => {
   const sectionRef = useRef(null);
-  const containerRef = useRef(null);
   const headerRef = useRef(null);
-  const gridRef = useRef(null);
   const cardsRef = useRef([]);
   const glowRef = useRef(null);
   const [hoveredIdx, setHoveredIdx] = useState(null);
 
   useEffect(() => {
-    /* Wait a tick for Next.js hydration to complete */
-    const frame = requestAnimationFrame(() => {
-      const ctx = gsap.context(() => {
-        const cards = cardsRef.current.filter(Boolean);
-        if (!cards.length) return;
+    gsap.registerPlugin(ScrollTrigger);
 
+    let ctx;
+    /* One rAF ensures the DOM is fully painted after Next.js hydration */
+    const raf = requestAnimationFrame(() => {
+      const section = sectionRef.current;
+      const header = headerRef.current;
+      const glow = glowRef.current;
+      const cards = cardsRef.current.filter(Boolean);
+
+      console.log("[Expertise] refs →", {
+        section: !!section,
+        header: !!header,
+        glow: !!glow,
+        cards: cards.length,
+      });
+
+      if (!section || !header || !glow || cards.length === 0) {
+        console.warn("[Expertise] Aborting – missing refs");
+        return;
+      }
+
+      ctx = gsap.context(() => {
+        /* ─── Step 1: Hide everything with gsap.set (immediate) ─── */
+        gsap.set(glow, { autoAlpha: 0, scale: 0.2 });
+        gsap.set(header, { autoAlpha: 0, y: 40 });
+        cards.forEach((card, i) => {
+          const d = flyDirections[i];
+          gsap.set(card, {
+            autoAlpha: 0,
+            scale: 0.35,
+            x: d.x,
+            y: d.y,
+            rotation: d.rotate,
+          });
+        });
+
+        /* ─── Step 2: Pinned scroll-driven timeline ─── */
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: section,
             start: "top top",
-            end: "+=200%",
-            scrub: true,
+            end: "+=3000",
+            scrub: 1,
             pin: true,
+            pinSpacing: true,
             anticipatePin: 1,
+            // markers: true,   // ← uncomment to debug
           },
         });
 
-        /* Phase 1: Glow pulses in */
-        tl.fromTo(
-          glowRef.current,
-          { scale: 0.3, opacity: 0 },
-          { scale: 1.4, opacity: 1, duration: 0.2, ease: "power2.out" },
+        console.log("[Expertise] ScrollTrigger timeline created");
+
+        /* ─── Step 3: Animate IN using tl.to() ─── */
+
+        /* 3a  – Glow pulses (0 → 1) */
+        tl.to(
+          glow,
+          {
+            autoAlpha: 1,
+            scale: 1.5,
+            duration: 1,
+            ease: "power2.out",
+          },
           0,
         );
 
-        /* Phase 2: Header slides in */
-        tl.fromTo(
-          headerRef.current,
-          { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.2, ease: "power2.out" },
-          0.05,
+        /* 3b  – Header slides in (0.3 → 1.3) */
+        tl.to(
+          header,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 1,
+            ease: "power2.out",
+          },
+          0.3,
         );
 
-        /* Phase 3: Cards fly from center to grid — staggered */
+        /* 3c  – Cards fan out from center, staggered (0.8 → varying) */
         cards.forEach((card, i) => {
-          const dir = flyDirections[i];
-          tl.fromTo(
+          tl.to(
             card,
             {
-              x: dir.x,
-              y: dir.y,
-              rotation: dir.rotate,
-              scale: 0.35,
-              opacity: 0,
-            },
-            {
+              autoAlpha: 1,
+              scale: 1,
               x: 0,
               y: 0,
               rotation: 0,
-              scale: 1,
-              opacity: 1,
-              duration: 0.25,
-              ease: "back.out(1.4)",
+              duration: 1.5,
+              ease: "back.out(1.2)",
             },
-            0.25 + i * 0.08,
+            0.8 + i * 0.2,
           );
         });
 
-        /* Phase 4: Glow fades */
+        /* 3d  – Hold phase so all cards stay visible */
+        tl.to({}, { duration: 0.8 });
+
+        /* 3e  – Glow fades during hold */
         tl.to(
-          glowRef.current,
-          { scale: 2.5, opacity: 0, duration: 0.15, ease: "power1.in" },
-          0.6,
+          glow,
+          {
+            autoAlpha: 0,
+            scale: 2.5,
+            duration: 0.6,
+          },
+          "-=0.6",
         );
+      }, section);
 
-        /* Phase 5: Hold so all cards are visible before unpin */
-        tl.to({}, { duration: 0.15 });
-      }, sectionRef);
-
-      /* Store for cleanup */
-      sectionRef.current._gsapCtx = ctx;
+      /* Force ScrollTrigger to re-measure after layout settles */
+      ScrollTrigger.refresh();
+      console.log("[Expertise] ScrollTrigger.refresh() done");
     });
 
     return () => {
-      cancelAnimationFrame(frame);
-      if (sectionRef.current?._gsapCtx) {
-        sectionRef.current._gsapCtx.revert();
-      }
+      cancelAnimationFrame(raf);
+      if (ctx) ctx.revert();
     };
   }, []);
 
-  /* 3D tilt on hover */
+  /* ── 3D tilt on hover (only rotateX/Y — doesn't conflict with scroll timeline) ── */
   const handleMouseMove = (e, idx) => {
     const card = cardsRef.current[idx];
     if (!card) return;
@@ -296,9 +330,8 @@ const ExpertiseMain = () => {
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     gsap.to(card, {
-      rotateY: x * 12,
-      rotateX: -y * 8,
-      scale: 1.03,
+      rotateY: x * 14,
+      rotateX: -y * 10,
       duration: 0.4,
       ease: "power2.out",
     });
@@ -311,31 +344,29 @@ const ExpertiseMain = () => {
     gsap.to(card, {
       rotateY: 0,
       rotateX: 0,
-      scale: 1,
-      duration: 0.5,
-      ease: "elastic.out(1, 0.4)",
+      duration: 0.6,
+      ease: "elastic.out(1, 0.5)",
     });
   };
 
   return (
     <section ref={sectionRef} className="relative bg-[#050507]">
       <div
-        ref={containerRef}
         className="relative min-h-screen flex flex-col justify-center py-24 sm:py-16"
         style={{ perspective: "1000px" }}
       >
-        {/* Center glow — the "source" where cards emerge from */}
+        {/* Center Glow */}
         <div
           ref={glowRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none z-0"
           style={{
             background:
-              "radial-gradient(circle, rgba(0,240,255,0.15) 0%, rgba(0,102,255,0.05) 40%, transparent 70%)",
-            filter: "blur(60px)",
+              "radial-gradient(circle, rgba(0,240,255,0.1) 0%, rgba(124,58,237,0.05) 40%, transparent 70%)",
+            filter: "blur(80px)",
           }}
         />
 
-        {/* Ambient bg accents */}
+        {/* Background Decor */}
         <div
           className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full opacity-[0.02] pointer-events-none"
           style={{
@@ -343,27 +374,24 @@ const ExpertiseMain = () => {
           }}
         />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 w-full">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 w-full">
           {/* Header */}
-          <div ref={headerRef} className="text-center mb-14">
-            <div className="flex items-center justify-center gap-4 mb-5">
-              <div className="h-px w-10 bg-gradient-to-r from-transparent to-[#00f0ff]/60" />
-              <span className="text-[#00f0ff] font-mono text-[0.65rem] tracking-[0.35em] uppercase">
+          <div ref={headerRef} className="text-center mb-16">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#00f0ff]/60" />
+              <span className="text-[#00f0ff] font-mono text-[0.7rem] tracking-[0.35em] uppercase">
                 What We Do
               </span>
-              <div className="h-px w-10 bg-gradient-to-l from-transparent to-[#00f0ff]/60" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#00f0ff]/60" />
             </div>
-            <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white tracking-tight leading-[1.1]">
+            <h2 className="text-4xl lg:text-6xl font-heading font-bold text-white tracking-tight leading-[1.1]">
               Six disciplines.{" "}
               <span className="gradient-text">One vision.</span>
             </h2>
           </div>
 
-          {/* Cards Grid */}
-          <div
-            ref={gridRef}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
-          >
+          {/* Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {disciplines.map((item, idx) => {
               const accent = accents[idx];
               const isHovered = hoveredIdx === idx;
@@ -371,17 +399,17 @@ const ExpertiseMain = () => {
                 <Link
                   href={item.link}
                   key={idx}
-                  ref={(el) => (cardsRef.current[idx] = el)}
-                  className="group relative rounded-xl border bg-[#090c10]/90 backdrop-blur-sm overflow-hidden will-change-transform"
+                  ref={(el) => { cardsRef.current[idx] = el; }}
+                  className="group relative rounded-2xl border bg-[#090c10]/80 backdrop-blur-md will-change-transform h-full flex flex-col"
                   style={{
                     transformStyle: "preserve-3d",
                     borderColor: isHovered
-                      ? `${accent}30`
-                      : "rgba(255,255,255,0.04)",
+                      ? `${accent}40`
+                      : "rgba(255,255,255,0.06)",
                     boxShadow: isHovered
-                      ? `0 20px 50px -15px ${accent}15, 0 0 0 1px ${accent}15, inset 0 1px 0 0 rgba(255,255,255,0.05)`
-                      : "0 0 0 0 transparent, inset 0 1px 0 0 rgba(255,255,255,0.03)",
-                    transition: "border-color 0.4s, box-shadow 0.4s",
+                      ? `0 20px 40px -10px ${accent}20, 0 0 0 1px ${accent}20`
+                      : "none",
+                    transition: "border-color 0.3s, box-shadow 0.3s",
                   }}
                   onMouseMove={(e) => {
                     setHoveredIdx(idx);
@@ -389,74 +417,74 @@ const ExpertiseMain = () => {
                   }}
                   onMouseLeave={() => handleMouseLeave(idx)}
                 >
-                  {/* Top gradient wash */}
+                  {/* Card Gradients */}
                   <div
-                    className="absolute top-0 left-0 right-0 h-24 pointer-events-none transition-opacity duration-500"
+                    className="absolute top-0 left-0 right-0 h-32 pointer-events-none transition-opacity duration-500"
                     style={{
-                      background: `linear-gradient(135deg, ${accent}08 0%, transparent 60%)`,
-                      opacity: isHovered ? 1 : 0.3,
+                      background: `linear-gradient(135deg, ${accent}10 0%, transparent 60%)`,
+                      opacity: isHovered ? 1 : 0.5,
                     }}
                   />
-
-                  {/* Hover spotlight */}
                   <div
                     className="absolute inset-0 pointer-events-none transition-opacity duration-500"
                     style={{
-                      background: `radial-gradient(circle at 50% 120%, ${accent}0a 0%, transparent 50%)`,
+                      background: `radial-gradient(circle at 50% 120%, ${accent}08 0%, transparent 50%)`,
                       opacity: isHovered ? 1 : 0,
                     }}
                   />
 
-                  <div className="relative z-10 p-5">
-                    {/* Icon + Tagline row */}
-                    <div className="flex items-center gap-2.5 mb-3">
+                  <div className="relative z-10 p-6 lg:p-8 flex flex-col flex-grow">
+                    {/* Icon & Tagline */}
+                    <div className="flex items-center gap-3 mb-5">
                       <div
-                        className="w-8 h-8 rounded-lg flex items-center justify-center border flex-shrink-0 transition-all duration-400"
+                        className="w-10 h-10 rounded-xl flex items-center justify-center border flex-shrink-0 transition-all duration-400"
                         style={{
                           color: accent,
-                          background: isHovered ? `${accent}15` : `${accent}06`,
+                          background: isHovered ? `${accent}15` : `${accent}05`,
                           borderColor: isHovered
-                            ? `${accent}30`
-                            : "rgba(255,255,255,0.06)",
+                            ? `${accent}40`
+                            : "rgba(255,255,255,0.08)",
                         }}
                       >
                         {item.icon}
                       </div>
                       <span
-                        className="font-mono text-[0.55rem] tracking-[0.22em] uppercase transition-opacity duration-300"
-                        style={{ color: accent, opacity: isHovered ? 1 : 0.7 }}
+                        className="font-mono text-[0.6rem] tracking-[0.2em] uppercase transition-opacity duration-300 font-bold"
+                        style={{ color: accent, opacity: isHovered ? 1 : 0.6 }}
                       >
                         {item.tagline}
                       </span>
                     </div>
 
-                    {/* Name */}
+                    {/* Title */}
                     <h3
-                      className="text-[1.05rem] font-heading font-semibold mb-1.5 transition-colors duration-300"
-                      style={{ color: isHovered ? accent : "#ffffff" }}
+                      className="text-xl lg:text-2xl font-heading font-bold mb-3 transition-colors duration-300"
+                      style={{ color: isHovered ? "#ffffff" : "#e2e8f0" }}
                     >
                       {item.name}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-[#94a3b8] text-[0.8rem] leading-relaxed mb-4">
+                    <p className="text-[#94a3b8] text-sm leading-relaxed mb-6 flex-grow">
                       {item.desc}
                     </p>
 
-                    {/* Pills row */}
-                    <div className="flex flex-wrap gap-1">
+                    {/* Pills */}
+                    <div className="flex flex-wrap gap-2 mt-auto">
                       {item.pills.map((pill, i) => (
                         <span
                           key={i}
-                          className="text-[0.6rem] px-2 py-0.5 rounded-full transition-all duration-300"
+                          className="text-[0.65rem] px-2.5 py-1 rounded-full transition-all duration-300 border"
                           style={{
-                            border: `1px solid ${isHovered ? `${accent}25` : "rgba(255,255,255,0.05)"}`,
+                            borderColor: isHovered
+                              ? `${accent}30`
+                              : "rgba(255,255,255,0.08)",
                             color: isHovered
-                              ? `${accent}cc`
-                              : "rgba(255,255,255,0.3)",
+                              ? `${accent}`
+                              : "rgba(255,255,255,0.4)",
                             background: isHovered
-                              ? `${accent}06`
-                              : "transparent",
+                              ? `${accent}08`
+                              : "rgba(255,255,255,0.02)",
                           }}
                         >
                           {pill}
@@ -465,27 +493,27 @@ const ExpertiseMain = () => {
                     </div>
                   </div>
 
-                  {/* Bottom accent line */}
+                  {/* Bottom Accent Line */}
                   <div
                     className="absolute bottom-0 left-0 right-0 h-[1px] transition-opacity duration-500"
                     style={{
-                      background: `linear-gradient(90deg, transparent 10%, ${accent}40 50%, transparent 90%)`,
+                      background: `linear-gradient(90deg, transparent 10%, ${accent}60 50%, transparent 90%)`,
                       opacity: isHovered ? 1 : 0,
                     }}
                   />
 
-                  {/* Corner arrow */}
+                  {/* Arrow Icon */}
                   <div
-                    className="absolute top-4 right-4 transition-all duration-400"
+                    className="absolute top-6 right-6 transition-all duration-400"
                     style={{
-                      color: isHovered ? accent : "transparent",
+                      color: isHovered ? accent : "rgba(255,255,255,0.1)",
                       transform: isHovered
-                        ? "translate(0,0)"
-                        : "translate(-4px,4px)",
+                        ? "translate(0,0) rotate(-45deg)"
+                        : "translate(4px,4px)",
                     }}
                   >
                     <svg
-                      className="w-3.5 h-3.5"
+                      className="w-5 h-5"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
