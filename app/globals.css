@@ -255,3 +255,74 @@ body {
 .overflow-x-auto::-webkit-scrollbar {
   display: none;
 }
+
+/* ─── Navbar Styles ─── */
+.navbar-transparent {
+  background: transparent;
+}
+
+.navbar-scrolled {
+  background: rgba(5, 5, 7, 0.85);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.06);
+  box-shadow:
+    0 1px 0 rgba(0, 240, 255, 0.04),
+    0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.75);
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link-active {
+  color: #ffffff;
+  background: rgba(0, 240, 255, 0.06);
+}
+
+.navbar-dropdown {
+  background: rgba(8, 12, 20, 0.92);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(0, 240, 255, 0.08);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 240, 255, 0.04);
+}
+
+.dropdown-item:hover {
+  background: rgba(0, 240, 255, 0.04);
+}
+
+.navbar-cta {
+  background: linear-gradient(135deg, #00f0ff 0%, #0066ff 100%);
+  color: #050507;
+}
+
+.navbar-cta:hover {
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.35),
+    0 0 40px rgba(0, 102, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* ─── Services Infinite Carousel ─── */
+@keyframes servicesScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.services-carousel {
+  animation: servicesScroll 30s linear infinite;
+  width: max-content;
+}
+
+.services-carousel:hover {
+  animation-play-state: paused;
+}

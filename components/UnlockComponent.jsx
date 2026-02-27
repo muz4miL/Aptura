@@ -9,33 +9,33 @@ const UnlockComponent = () => {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section
-      ref={ref}
-      className="relative bg-[#050507] py-32 px-6 overflow-hidden"
-    >
-      {/* Background accents */}
+    <section ref={ref} className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+      {/* Parallax Background Image */}
       <div
-        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04] pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
         style={{
-          background:
-            "radial-gradient(circle, rgba(0,240,255,0.5) 0%, transparent 70%)",
-          filter: "blur(100px)",
-        }}
-      />
-      <div
-        className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(0,102,255,0.5) 0%, transparent 70%)",
-          filter: "blur(80px)",
+          backgroundImage: 'url("/images/cta-bg.jpg")',
         }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      {/* Dark overlay with brand tint */}
+      <div className="absolute inset-0 bg-[#050507]/70" />
+
+      {/* Subtle cyan gradient overlay */}
+      <div
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 120%, rgba(0,240,255,0.15) 0%, transparent 60%)",
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
         >
           <p className="text-[#00f0ff] font-mono text-xs tracking-[0.3em] uppercase mb-6">
             Ready to start?
@@ -44,7 +44,7 @@ const UnlockComponent = () => {
             Let&apos;s build something{" "}
             <span className="gradient-text">extraordinary</span>
           </h2>
-          <p className="text-[#94a3b8] text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="text-white/70 text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
             Whether it&apos;s an AI-powered platform, a mobile app, or a
             full-scale digital transformation — we&apos;re ready when you are.
           </p>
@@ -76,10 +76,10 @@ const UnlockComponent = () => {
             </svg>
           </Link>
           <Link
-            href="/case-studies"
-            className="inline-flex items-center gap-2 border border-white/10 text-white/70 hover:text-[#00f0ff] hover:border-[#00f0ff]/30 font-heading font-medium text-base py-4 px-10 rounded-xl transition-all duration-300"
+            href="/clients"
+            className="inline-flex items-center gap-2 border border-white/20 text-white/80 hover:text-[#00f0ff] hover:border-[#00f0ff]/30 font-heading font-medium text-base py-4 px-10 rounded-xl transition-all duration-300 backdrop-blur-sm"
           >
-            See Our Work
+            See Our Clients
           </Link>
         </motion.div>
       </div>

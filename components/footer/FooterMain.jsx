@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { FiMail, FiPhone } from "react-icons/fi";
-import { FaWhatsapp, FaMagnifyingGlassLocation } from "react-icons/fa6";
+import Image from "next/image";
+import { FaMagnifyingGlassLocation } from "react-icons/fa6";
 
 const FooterMain = () => {
   return (
@@ -17,9 +17,18 @@ const FooterMain = () => {
       <div className="relative z-10 flex flex-wrap justify-between gap-12 md:gap-6">
         {/* Left Section */}
         <div className="max-w-80">
-          <h1 className="text-white font-heading font-bold text-2xl gradient-text">
-            Aptura Tech
-          </h1>
+          <div className="flex items-center gap-2.5 mb-2">
+            <Image
+              src="/logo-rembg1.png"
+              alt="Aptura Tech Solutions Logo"
+              width={36}
+              height={36}
+              className="object-contain logo-glow"
+            />
+            <h1 className="text-white font-heading font-bold text-2xl gradient-text">
+              Aptura Tech
+            </h1>
+          </div>
           <p className="text-sm mt-2 text-[#94a3b8]">
             Engineering intelligent software, AI systems, and digital products
             that give ambitious businesses their unfair advantage.
@@ -75,7 +84,7 @@ const FooterMain = () => {
             {[
               { name: "About Us", path: "/about" },
               { name: "Our Methodology", path: "/methodology" },
-              { name: "Case Studies", path: "/case-studies" },
+              { name: "Clients", path: "/clients" },
               { name: "Contact Us", path: "/contact" },
             ].map((item) => (
               <li key={item.name}>
@@ -112,13 +121,22 @@ const FooterMain = () => {
 
       {/* Bottom Row */}
       <div className="relative z-10 flex flex-col md:flex-row gap-2 items-center justify-between py-5 text-xs">
-        <p>
-          &copy; {new Date().getFullYear()}{" "}
-          <Link href="/" className="hover:text-[#00f0ff]">
-            Aptura Tech Solutions
-          </Link>
-          . All rights reserved.
-        </p>
+        <div className="flex items-center gap-2">
+          <Image
+            src="/logo-rembg1.png"
+            alt="Aptura"
+            width={20}
+            height={20}
+            className="object-contain opacity-60"
+          />
+          <p>
+            &copy; {new Date().getFullYear()}{" "}
+            <Link href="/" className="hover:text-[#00f0ff]">
+              Aptura Tech Solutions
+            </Link>
+            . All rights reserved.
+          </p>
+        </div>
         <ul className="flex items-center gap-4">
           <li>
             <Link href="/about" className="hover:text-[#00f0ff]">

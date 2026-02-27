@@ -11,9 +11,6 @@ import {
   FaProjectDiagram,
   FaCogs,
   FaRocket,
-  FaUsers,
-  FaBriefcase,
-  FaBuilding,
 } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 import { MdArrowDropDown } from "react-icons/md";
@@ -21,131 +18,76 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 
-const menuData = {
-  Solutions: [
-    {
-      label: "Web Development",
-      description: "Full-stack apps with MERN, Next.js & Laravel",
-      icon: <FaCode />,
-    },
-    {
-      label: "App Development",
-      description: "Native & cross-platform mobile experiences",
-      icon: <FaMobileAlt />,
-    },
-    {
-      label: "Artificial Intelligence",
-      description: "LLMs, NLP, computer vision & predictive AI",
-      icon: <FaBrain />,
-    },
-    {
-      label: "CyberSecurity",
-      description: "Pentesting, audits & zero-trust architecture",
-      icon: <FaShieldAlt />,
-    },
-    {
-      label: "UI/UX Design",
-      description: "Research-driven interfaces that convert",
-      icon: <FaPencilRuler />,
-    },
-    {
-      label: "IOT",
-      description: "Connected devices & real-time data pipelines",
-      icon: <FaMicrochip />,
-    },
-  ],
-  Process: [
-    {
-      label: "Our Methodology",
-      description: "Agile sprints, transparent delivery",
-      icon: <FaProjectDiagram />,
-    },
-    {
-      label: "Development Approach",
-      description: "Plan → Build → Ship → Iterate",
-      icon: <FaCogs />,
-    },
-    {
-      label: "Idea to Launch",
-      description: "From napkin sketch to production",
-      icon: <FaRocket />,
-    },
-  ],
-  Company: [
-    {
-      label: "About Us",
-      description: "Our mission, values & story.",
-      icon: <FaBuilding />,
-    },
-    {
-      label: "Our Team",
-      description: "Engineers, designers & strategists.",
-      icon: <FaUsers />,
-    },
-    {
-      label: "Careers",
-      description: "Join the team — open roles.",
-      icon: <FaBriefcase />,
-    },
-    {
-      label: "News",
-      description: "Latest from Aptura.",
-      icon: <FaBriefcase />,
-    },
-  ],
-  Work: [],
-};
+const solutionsData = [
+  {
+    label: "Web Development",
+    description: "Scalable full-stack apps built with MERN, Next.js, and Laravel for performance at any scale.",
+    icon: <FaCode />,
+    accent: "from-blue-500/20 to-blue-600/5",
+  },
+  {
+    label: "App Development",
+    description: "Native and cross-platform mobile experiences crafted for iOS, Android, and beyond.",
+    icon: <FaMobileAlt />,
+    accent: "from-green-500/20 to-green-600/5",
+  },
+  {
+    label: "Artificial Intelligence",
+    description: "Custom LLMs, computer vision, NLP pipelines, and predictive models that drive decisions.",
+    icon: <FaBrain />,
+    accent: "from-purple-500/20 to-purple-600/5",
+  },
+  {
+    label: "Cybersecurity",
+    description: "Penetration testing, security audits, and zero-trust architecture to protect what matters.",
+    icon: <FaShieldAlt />,
+    accent: "from-red-500/20 to-red-600/5",
+  },
+  {
+    label: "UI/UX Design",
+    description: "Research-driven interfaces, design systems, and prototypes that turn visitors into users.",
+    icon: <FaPencilRuler />,
+    accent: "from-pink-500/20 to-pink-600/5",
+  },
+  {
+    label: "IoT Solutions",
+    description: "Connected device ecosystems, edge computing, and real-time monitoring at industrial scale.",
+    icon: <FaMicrochip />,
+    accent: "from-amber-500/20 to-amber-600/5",
+  },
+];
 
-const getPath = (item) => {
-  switch (item.toLowerCase()) {
-    case "web development":
-      return "/service/web-development";
-    case "app development":
-      return "/service/mobile-apps";
-    case "artificial intelligence":
-      return "/service/ai";
-    case "cybersecurity":
-      return "/service/cybersecurity";
-    case "ui/ux design":
-      return "/service/ui-ux";
-    case "iot":
-      return "/service/iot";
-    case "our methodology":
-      return "/methodology";
-    case "development approach":
-      return "/development";
-    case "idea to launch":
-      return "/launch";
-    case "about us":
-      return "/about";
-    case "our team":
-      return "/team";
-    case "careers":
-      return "/careers";
-    case "work":
-      return "/case-studies";
-    case "news":
-      return "/news";
-    default:
-      return "#";
-  }
-};
+const methodData = [
+  {
+    label: "Agile Methodology",
+    description: "Sprint-based delivery with full transparency — every milestone is visible, measurable, and on track. We adapt as your product evolves.",
+    icon: <FaProjectDiagram />,
+    step: "01",
+  },
+  {
+    label: "Build & Ship Cycle",
+    description: "Plan, Build, Ship, Iterate. We move with urgency without cutting corners — delivering production-grade code at every stage of the pipeline.",
+    icon: <FaCogs />,
+    step: "02",
+  },
+  {
+    label: "Idea to Production",
+    description: "From concept to deployment — we handle feasibility, design, development, QA, and launch. One team, zero handoffs, complete ownership.",
+    icon: <FaRocket />,
+    step: "03",
+  },
+];
 
 const Navbar = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [showHeader, setShowHeader] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const timeoutRef = useRef(null);
-  const prevScrollY = useRef(0);
   const router = useRouter();
   const pathname = usePathname();
-  const isHome = pathname === "/";
 
   useEffect(() => {
     setActiveMenu(null);
-    setIsHovered(false);
     setMobileOpen(false);
   }, [pathname]);
 
@@ -155,73 +97,47 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setShowHeader(
-        currentScrollY < prevScrollY.current || currentScrollY < 50,
-      );
-      setIsScrolled(currentScrollY > 10);
-      prevScrollY.current = currentScrollY;
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleMouseEnter = () => {
-    clearTimeout(timeoutRef.current);
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setIsHovered(false);
-    }, 300);
-  };
-
   const handleMenuEnter = (label) => {
-    if (label === "Work") return;
-    handleMouseEnter();
     clearTimeout(timeoutRef.current);
     setActiveMenu(label);
   };
 
   const handleMenuLeave = () => {
-    handleMouseLeave();
     timeoutRef.current = setTimeout(() => {
       setActiveMenu(null);
-    }, 300);
+    }, 200);
   };
 
   const toggleMobileMenu = (label) => {
-    const isSame = activeMenu === label;
-    setActiveMenu(isSame ? null : label);
+    setActiveMenu(activeMenu === label ? null : label);
   };
 
-  const bgClass =
-    activeMenu || isHovered || isScrolled ? "glass-card" : "bg-transparent";
-
-  const buttonClass =
-    "bg-gradient-to-r from-[#00f0ff] to-[#0066ff] text-[#050507] font-semibold glow-btn";
+  const navItems = ["Solutions", "Method", "About", "Clients", "Contact"];
 
   return (
     <header
-      className={`w-full fixed top-0 z-40 lg:px-20 sm:px-6 py-3 transition-all duration-500 text-white ${
-        showHeader ? "translate-y-0" : "-translate-y-full"
-      } ${bgClass}`}
+      className={`w-full fixed top-0 z-50 lg:px-20 sm:px-6 py-2 transition-all duration-300 text-white ${
+        isScrolled || activeMenu ? "navbar-scrolled" : "navbar-transparent"
+      }`}
     >
       <div className="max-w-[1300px] mx-auto flex items-center justify-between h-16 sm:h-[70px]">
         {/* Logo */}
         <div
-          className="flex items-center gap-2.5 cursor-pointer"
+          className="flex items-center gap-2.5 cursor-pointer group"
           onClick={() => router.push("/")}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
         >
           <Image
-            src="/logo-rembg.png"
+            src="/logo-rembg1.png"
             alt="Aptura Tech Solutions Logo"
-            width={40}
-            height={40}
-            className="object-contain logo-glow"
+            width={42}
+            height={42}
+            className="object-contain logo-glow transition-transform duration-300 group-hover:scale-105"
           />
           <span className="text-xl lg:block sm:block sm:text-2xl md:hidden font-heading font-bold gradient-text">
             Aptura
@@ -230,69 +146,145 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:block z-50 relative">
-          <ul className="flex items-center gap-8 text-[15px] font-medium tracking-wide">
-            {Object.entries(menuData).map(([label, submenu]) => (
-              <li
-                key={label}
-                className="relative"
-                onMouseEnter={() => handleMenuEnter(label)}
-                onMouseLeave={handleMenuLeave}
-              >
-                {label === "Work" ? (
-                  <Link
-                    href={getPath(label)}
-                    className="flex items-center cursor-pointer text-white/80 hover:text-[#00f0ff] transition-all duration-200"
-                  >
-                    {label}
-                  </Link>
-                ) : (
-                  <div className="flex items-center cursor-pointer text-white/80 hover:text-[#00f0ff] transition-all duration-200">
-                    {label}
-                    <MdArrowDropDown className="ml-0.5 opacity-50" />
-                  </div>
-                )}
+          <ul className="flex items-center gap-1 text-[15px] font-medium tracking-wide">
+            {navItems.map((label) => {
+              const hasDropdown = label === "Solutions" || label === "Method";
+              const isActive = activeMenu === label;
 
-                {/* Mega dropdown */}
-                {activeMenu === label && label !== "Work" && (
+              if (!hasDropdown) {
+                const hrefMap = { About: "/about", Clients: "/clients", Contact: "/contact" };
+                const href = hrefMap[label] || "#";
+                return (
+                  <li key={label} className="relative">
+                    <Link
+                      href={href}
+                      className="nav-link flex items-center px-4 py-2 rounded-lg transition-all duration-200"
+                      onMouseEnter={() => {
+                        clearTimeout(timeoutRef.current);
+                        setActiveMenu(null);
+                      }}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                );
+              }
+
+              return (
+                <li
+                  key={label}
+                  className="relative"
+                  onMouseEnter={() => handleMenuEnter(label)}
+                  onMouseLeave={handleMenuLeave}
+                >
                   <div
-                    className="fixed left-0 top-full w-full z-40 animate-fade-in-down"
-                    onMouseEnter={() => handleMenuEnter(label)}
-                    onMouseLeave={handleMenuLeave}
+                    className={`nav-link flex items-center px-4 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
+                      isActive ? "nav-link-active" : ""
+                    }`}
                   >
-                    <div className="glass-card border-t border-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-                      <div className="max-w-6xl mx-auto px-8 py-8">
-                        <p className="text-[#00f0ff]/60 text-xs font-heading uppercase tracking-[0.25em] mb-6">
-                          {label}
-                        </p>
-                        <div
-                          className={`grid gap-4 ${submenu.length > 3 ? "grid-cols-3" : "grid-cols-3"}`}
-                        >
-                          {submenu.map((section, idx) => (
-                            <Link
+                    {label}
+                    <MdArrowDropDown
+                      className={`ml-0.5 text-lg transition-transform duration-200 ${
+                        isActive ? "rotate-180" : ""
+                      }`}
+                    />
+                  </div>
+
+                  {/* Solutions Dropdown */}
+                  {isActive && label === "Solutions" && (
+                    <div
+                      className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50 animate-fade-in-down"
+                      onMouseEnter={() => handleMenuEnter(label)}
+                      onMouseLeave={handleMenuLeave}
+                    >
+                      <div className="navbar-dropdown rounded-2xl overflow-hidden w-[420px]">
+                        {/* Header */}
+                        <div className="px-5 pt-5 pb-3">
+                          <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#00f0ff]/50">
+                            Our Expertise
+                          </p>
+                        </div>
+                        {/* Items */}
+                        <div className="px-3 pb-3 flex flex-col gap-0.5">
+                          {solutionsData.map((item, idx) => (
+                            <div
                               key={idx}
-                              href={getPath(section.label)}
-                              className="group flex items-start gap-3 p-3 rounded-lg hover:bg-white/[0.04] transition-all duration-200"
+                              className="dropdown-item group flex items-start gap-3.5 px-3 py-3 rounded-xl transition-all duration-200 cursor-default"
                             >
-                              <div className="mt-0.5 text-[#00f0ff]/70 group-hover:text-[#00f0ff] transition-colors text-lg">
-                                {section.icon}
+                              <div
+                                className={`mt-0.5 w-9 h-9 flex items-center justify-center rounded-lg bg-gradient-to-br ${item.accent} text-[#00f0ff]/70 group-hover:text-[#00f0ff] transition-colors text-sm flex-shrink-0`}
+                              >
+                                {item.icon}
                               </div>
-                              <div>
-                                <p className="text-white font-medium text-sm group-hover:text-[#00f0ff] transition-colors">
-                                  {section.label}
+                              <div className="min-w-0">
+                                <p className="text-white/90 font-medium text-[13px] group-hover:text-[#00f0ff] transition-colors leading-tight">
+                                  {item.label}
                                 </p>
-                                <p className="text-[#94a3b8]/80 text-xs mt-0.5 leading-relaxed">
-                                  {section.description}
+                                <p className="text-[#94a3b8]/60 text-[11px] mt-1 leading-relaxed">
+                                  {item.description}
                                 </p>
                               </div>
-                            </Link>
+                            </div>
                           ))}
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </li>
-            ))}
+                  )}
+
+                  {/* Method Dropdown */}
+                  {isActive && label === "Method" && (
+                    <div
+                      className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50 animate-fade-in-down"
+                      onMouseEnter={() => handleMenuEnter(label)}
+                      onMouseLeave={handleMenuLeave}
+                    >
+                      <div className="navbar-dropdown rounded-2xl overflow-hidden w-[400px]">
+                        {/* Header */}
+                        <div className="px-5 pt-5 pb-3">
+                          <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#00f0ff]/50">
+                            How We Work
+                          </p>
+                        </div>
+                        {/* Items */}
+                        <div className="px-3 pb-3 flex flex-col gap-0.5">
+                          {methodData.map((item, idx) => (
+                            <div
+                              key={idx}
+                              className="dropdown-item group flex items-start gap-3.5 px-3 py-3.5 rounded-xl transition-all duration-200 cursor-default"
+                            >
+                              <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg bg-[#00f0ff]/[0.06] border border-[#00f0ff]/10">
+                                <span className="text-[#00f0ff]/60 group-hover:text-[#00f0ff] text-[11px] font-mono font-bold transition-colors">
+                                  {item.step}
+                                </span>
+                              </div>
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <p className="text-white/90 font-medium text-[13px] group-hover:text-[#00f0ff] transition-colors leading-tight">
+                                    {item.label}
+                                  </p>
+                                  <span className="text-[#00f0ff]/30 group-hover:text-[#00f0ff]/60 transition-colors text-xs">
+                                    {item.icon}
+                                  </span>
+                                </div>
+                                <p className="text-[#94a3b8]/60 text-[11px] mt-1 leading-relaxed">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        {/* Footer accent */}
+                        <div className="mx-5 mb-4 pt-3 border-t border-white/[0.04]">
+                          <p className="text-[#94a3b8]/40 text-[10px] font-mono tracking-wide">
+                            Agile-first delivery &middot; Zero handoffs &middot; Complete ownership
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -300,16 +292,14 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           <Link
             href="/contact"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className={`${buttonClass} cursor-pointer px-6 py-2.5 text-sm rounded-lg hidden md:block`}
+            className="navbar-cta cursor-pointer px-6 py-2.5 text-sm rounded-lg hidden md:block font-semibold transition-all duration-300"
           >
             Get in Touch
           </Link>
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-3xl ml-2 focus:outline-none text-white/80"
+            className="md:hidden text-3xl ml-2 focus:outline-none text-white/80 hover:text-[#00f0ff] transition-colors"
           >
             {mobileOpen ? <HiX /> : <HiMenu />}
           </button>
@@ -318,61 +308,98 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden glass-card text-white px-5 py-6 shadow-2xl border-t border-white/5 mt-2 rounded-xl mx-2">
-          <ul className="flex flex-col gap-3">
-            {Object.entries(menuData).map(([label, submenu]) => (
-              <li key={label} className="border-b border-white/5 pb-3">
-                {label === "Work" ? (
-                  <Link
-                    href={getPath(label)}
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-between text-base font-medium text-white hover:text-[#00f0ff] transition-colors"
+        <div className="md:hidden navbar-dropdown text-white px-5 py-6 shadow-2xl border-t border-white/5 mt-2 rounded-xl mx-2">
+          <ul className="flex flex-col gap-1">
+            {navItems.map((label) => {
+              const hasDropdown = label === "Solutions" || label === "Method";
+
+              if (!hasDropdown) {
+                const hrefMap = { About: "/about", Clients: "/clients", Contact: "/contact" };
+                const href = hrefMap[label] || "#";
+                return (
+                  <li
+                    key={label}
+                    className="border-b border-white/5 pb-3 mb-1"
                   >
-                    {label}
-                  </Link>
-                ) : (
-                  <>
-                    <div
-                      className="flex items-center justify-between cursor-pointer text-base font-medium text-white hover:text-[#00f0ff] transition-colors"
-                      onClick={() => toggleMobileMenu(label)}
+                    <Link
+                      href={href}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between text-base font-medium text-white/90 hover:text-[#00f0ff] transition-colors py-1"
                     >
                       {label}
-                      <MdArrowDropDown
-                        className={`text-xl transition-transform duration-200 ${
-                          activeMenu === label ? "rotate-180" : ""
-                        }`}
-                      />
-                    </div>
+                    </Link>
+                  </li>
+                );
+              }
 
-                    {activeMenu === label && (
-                      <ul className="mt-3 pl-2 flex flex-col gap-1">
-                        {submenu.map((item, idx) => (
+              return (
+                <li
+                  key={label}
+                  className="border-b border-white/5 pb-3 mb-1"
+                >
+                  <div
+                    className="flex items-center justify-between cursor-pointer text-base font-medium text-white/90 hover:text-[#00f0ff] transition-colors py-1"
+                    onClick={() => toggleMobileMenu(label)}
+                  >
+                    {label}
+                    <MdArrowDropDown
+                      className={`text-xl transition-transform duration-200 ${
+                        activeMenu === label ? "rotate-180" : ""
+                      }`}
+                    />
+                  </div>
+
+                  {activeMenu === label && (
+                    <ul className="mt-2 pl-1 flex flex-col gap-0.5">
+                      {label === "Solutions" &&
+                        solutionsData.map((item, idx) => (
                           <li key={idx}>
-                            <Link
-                              href={getPath(item.label)}
-                              onClick={() => setMobileOpen(false)}
-                              className="flex items-center gap-2 py-1.5 text-sm text-[#94a3b8] hover:text-[#00f0ff] transition-colors"
-                            >
-                              <span className="text-[#00f0ff]/50 text-xs">
+                            <div className="flex items-start gap-2.5 py-2.5 px-3 text-sm rounded-lg">
+                              <span className="text-[#00f0ff]/50 text-xs mt-0.5 flex-shrink-0">
                                 {item.icon}
                               </span>
-                              {item.label}
-                            </Link>
+                              <div>
+                                <p className="text-white/80 font-medium text-sm">
+                                  {item.label}
+                                </p>
+                                <p className="text-[#94a3b8]/50 text-xs mt-0.5 leading-relaxed">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </div>
                           </li>
                         ))}
-                      </ul>
-                    )}
-                  </>
-                )}
-              </li>
-            ))}
+
+                      {label === "Method" &&
+                        methodData.map((item, idx) => (
+                          <li key={idx}>
+                            <div className="flex items-start gap-2.5 py-2.5 px-3 text-sm rounded-lg">
+                              <span className="text-[#00f0ff]/40 text-[11px] font-mono font-bold mt-0.5 flex-shrink-0">
+                                {item.step}
+                              </span>
+                              <div>
+                                <p className="text-white/80 font-medium text-sm">
+                                  {item.label}
+                                </p>
+                                <p className="text-[#94a3b8]/50 text-xs mt-0.5 leading-relaxed">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
 
           <div className="mt-5">
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="w-full bg-gradient-to-r from-[#00f0ff] to-[#0066ff] text-[#050507] font-semibold rounded-lg px-6 py-3 block text-center glow-btn transition-all"
+              className="w-full navbar-cta rounded-lg px-6 py-3 block text-center font-semibold transition-all"
             >
               Get in Touch
             </Link>
