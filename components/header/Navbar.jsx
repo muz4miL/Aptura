@@ -23,19 +23,19 @@ const solutionsData = [
     label: "Web Development",
     description: "Scalable full-stack apps built with MERN, Next.js, and Laravel for performance at any scale.",
     icon: <FaCode />,
-    accent: "from-blue-500/20 to-blue-600/5",
+    accent: "from-teal-500/20 to-teal-600/5",
   },
   {
     label: "App Development",
     description: "Native and cross-platform mobile experiences crafted for iOS, Android, and beyond.",
     icon: <FaMobileAlt />,
-    accent: "from-green-500/20 to-green-600/5",
+    accent: "from-amber-500/20 to-amber-600/5",
   },
   {
     label: "Artificial Intelligence",
     description: "Custom LLMs, computer vision, NLP pipelines, and predictive models that drive decisions.",
     icon: <FaBrain />,
-    accent: "from-purple-500/20 to-purple-600/5",
+    accent: "from-emerald-500/20 to-emerald-600/5",
   },
   {
     label: "Cybersecurity",
@@ -47,13 +47,13 @@ const solutionsData = [
     label: "UI/UX Design",
     description: "Research-driven interfaces, design systems, and prototypes that turn visitors into users.",
     icon: <FaPencilRuler />,
-    accent: "from-pink-500/20 to-pink-600/5",
+    accent: "from-orange-500/20 to-orange-600/5",
   },
   {
     label: "IoT Solutions",
     description: "Connected device ecosystems, edge computing, and real-time monitoring at industrial scale.",
     icon: <FaMicrochip />,
-    accent: "from-amber-500/20 to-amber-600/5",
+    accent: "from-cyan-500/20 to-cyan-600/5",
   },
 ];
 
@@ -200,7 +200,7 @@ const Navbar = () => {
                       <div className="navbar-dropdown rounded-2xl overflow-hidden w-[420px]">
                         {/* Header */}
                         <div className="px-5 pt-5 pb-3">
-                          <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#00f0ff]/50">
+                          <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#008080]/50">
                             Our Expertise
                           </p>
                         </div>
@@ -212,12 +212,12 @@ const Navbar = () => {
                               className="dropdown-item group flex items-start gap-3.5 px-3 py-3 rounded-xl transition-all duration-200 cursor-default"
                             >
                               <div
-                                className={`mt-0.5 w-9 h-9 flex items-center justify-center rounded-lg bg-gradient-to-br ${item.accent} text-[#00f0ff]/70 group-hover:text-[#00f0ff] transition-colors text-sm flex-shrink-0`}
+                                className={`mt-0.5 w-9 h-9 flex items-center justify-center rounded-lg bg-gradient-to-br ${item.accent} text-[#008080]/70 group-hover:text-[#008080] transition-colors text-sm flex-shrink-0`}
                               >
                                 {item.icon}
                               </div>
                               <div className="min-w-0">
-                                <p className="text-white/90 font-medium text-[13px] group-hover:text-[#00f0ff] transition-colors leading-tight">
+                                <p className="text-white/90 font-medium text-[13px] group-hover:text-[#f4e1c1] transition-colors leading-tight">
                                   {item.label}
                                 </p>
                                 <p className="text-[#94a3b8]/60 text-[11px] mt-1 leading-relaxed">
@@ -241,7 +241,7 @@ const Navbar = () => {
                       <div className="navbar-dropdown rounded-2xl overflow-hidden w-[400px]">
                         {/* Header */}
                         <div className="px-5 pt-5 pb-3">
-                          <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#00f0ff]/50">
+                          <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#008080]/50">
                             How We Work
                           </p>
                         </div>
@@ -252,17 +252,17 @@ const Navbar = () => {
                               key={idx}
                               className="dropdown-item group flex items-start gap-3.5 px-3 py-3.5 rounded-xl transition-all duration-200 cursor-default"
                             >
-                              <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg bg-[#00f0ff]/[0.06] border border-[#00f0ff]/10">
-                                <span className="text-[#00f0ff]/60 group-hover:text-[#00f0ff] text-[11px] font-mono font-bold transition-colors">
+                              <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg bg-[#008080]/[0.06] border border-[#008080]/10">
+                                <span className="text-[#008080]/60 group-hover:text-[#008080] text-[11px] font-mono font-bold transition-colors">
                                   {item.step}
                                 </span>
                               </div>
                               <div className="min-w-0">
                                 <div className="flex items-center gap-2">
-                                  <p className="text-white/90 font-medium text-[13px] group-hover:text-[#00f0ff] transition-colors leading-tight">
+                                  <p className="text-white/90 font-medium text-[13px] group-hover:text-[#f4e1c1] transition-colors leading-tight">
                                     {item.label}
                                   </p>
-                                  <span className="text-[#00f0ff]/30 group-hover:text-[#00f0ff]/60 transition-colors text-xs">
+                                  <span className="text-[#008080]/30 group-hover:text-[#008080]/60 transition-colors text-xs">
                                     {item.icon}
                                   </span>
                                 </div>
@@ -299,7 +299,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-3xl ml-2 focus:outline-none text-white/80 hover:text-[#00f0ff] transition-colors"
+            className="md:hidden text-3xl ml-2 focus:outline-none text-white/80 hover:text-[#f4e1c1] transition-colors"
           >
             {mobileOpen ? <HiX /> : <HiMenu />}
           </button>
@@ -324,7 +324,7 @@ const Navbar = () => {
                     <Link
                       href={href}
                       onClick={() => setMobileOpen(false)}
-                      className="flex items-center justify-between text-base font-medium text-white/90 hover:text-[#00f0ff] transition-colors py-1"
+                      className="flex items-center justify-between text-base font-medium text-white/90 hover:text-[#f4e1c1] transition-colors py-1"
                     >
                       {label}
                     </Link>
@@ -338,7 +338,7 @@ const Navbar = () => {
                   className="border-b border-white/5 pb-3 mb-1"
                 >
                   <div
-                    className="flex items-center justify-between cursor-pointer text-base font-medium text-white/90 hover:text-[#00f0ff] transition-colors py-1"
+                    className="flex items-center justify-between cursor-pointer text-base font-medium text-white/90 hover:text-[#f4e1c1] transition-colors py-1"
                     onClick={() => toggleMobileMenu(label)}
                   >
                     {label}
@@ -355,7 +355,7 @@ const Navbar = () => {
                         solutionsData.map((item, idx) => (
                           <li key={idx}>
                             <div className="flex items-start gap-2.5 py-2.5 px-3 text-sm rounded-lg">
-                              <span className="text-[#00f0ff]/50 text-xs mt-0.5 flex-shrink-0">
+                              <span className="text-[#008080]/50 text-xs mt-0.5 flex-shrink-0">
                                 {item.icon}
                               </span>
                               <div>
@@ -374,7 +374,7 @@ const Navbar = () => {
                         methodData.map((item, idx) => (
                           <li key={idx}>
                             <div className="flex items-start gap-2.5 py-2.5 px-3 text-sm rounded-lg">
-                              <span className="text-[#00f0ff]/40 text-[11px] font-mono font-bold mt-0.5 flex-shrink-0">
+                              <span className="text-[#008080]/40 text-[11px] font-mono font-bold mt-0.5 flex-shrink-0">
                                 {item.step}
                               </span>
                               <div>

@@ -12,8 +12,8 @@ const DifferenceTop = () => {
       className="mb-6"
     >
       <div className="flex items-center gap-4 mb-4">
-        <div className="h-px w-12 bg-gradient-to-r from-[#00f0ff] to-transparent" />
-        <span className="text-[#00f0ff] font-mono text-xs tracking-[0.3em] uppercase">
+        <div className="h-px w-12 bg-gradient-to-r from-[#008080] to-transparent" />
+        <span className="text-[#008080] font-mono text-xs tracking-[0.3em] uppercase">
           Why Aptura
         </span>
       </div>

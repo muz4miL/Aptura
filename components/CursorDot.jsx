@@ -37,9 +37,7 @@ const CursorDot = () => {
     window.addEventListener("mousemove", handleMouseMove);
     animate();
 
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [targetPos]);
 
   return (
@@ -52,12 +50,12 @@ const CursorDot = () => {
         left: 0,
         width: "8px",
         height: "8px",
-        backgroundColor: "#00f0ff",
+        backgroundColor: "#008080",
         borderRadius: "50%",
         pointerEvents: "none",
         transform: "translate(-50%, -50%)",
         zIndex: 9999,
-        boxShadow: "0 0 8px rgba(0, 240, 255, 0.6)",
+        boxShadow: "0 0 8px rgba(0, 128, 128, 0.6)",
       }}
     />
   );

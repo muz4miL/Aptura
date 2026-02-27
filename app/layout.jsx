@@ -4,6 +4,7 @@ import FooterMain from "@/components/footer/FooterMain";
 import CursorDot from "@/components/CursorDot";
 import ScrollToTop from "@/components/ScrollToTop";
 import AuroraBackground from "@/components/AuroraBackground";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata = {
   title: {
@@ -59,6 +60,7 @@ export default function RootLayout({ children }) {
           <main className="flex-1 font-body">{children}</main>
           <FooterMain />
           <CursorDot />
+          <WhatsAppButton />
         </div>
       </body>
     </html>

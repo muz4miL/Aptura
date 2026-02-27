@@ -9,12 +9,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ── Accent colors ── */
 const accents = [
-  "#00f0ff",
-  "#7c3aed",
-  "#22d3ee",
-  "#f43f5e",
-  "#d4af37",
-  "#10b981",
+  "#008080",
+  "#c4956a",
+  "#5f9ea0",
+  "#d4a574",
+  "#8fbc8f",
+  "#b8860b",
 ];
 
 /* ── Data ── */
@@ -361,7 +361,7 @@ const ExpertiseMain = () => {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none z-0"
           style={{
             background:
-              "radial-gradient(circle, rgba(0,240,255,0.1) 0%, rgba(124,58,237,0.05) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(0,128,128,0.1) 0%, rgba(196,149,106,0.05) 40%, transparent 70%)",
             filter: "blur(80px)",
           }}
         />
@@ -370,7 +370,7 @@ const ExpertiseMain = () => {
         <div
           className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full opacity-[0.02] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, #7c3aed, transparent 70%)",
+            background: "radial-gradient(circle, #c4956a, transparent 70%)",
           }}
         />
 
@@ -378,11 +378,11 @@ const ExpertiseMain = () => {
           {/* Header */}
           <div ref={headerRef} className="text-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#00f0ff]/60" />
-              <span className="text-[#00f0ff] font-mono text-[0.7rem] tracking-[0.35em] uppercase">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#008080]/60" />
+              <span className="text-[#008080] font-mono text-[0.7rem] tracking-[0.35em] uppercase">
                 What We Do
               </span>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#00f0ff]/60" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#008080]/60" />
             </div>
             <h2 className="text-4xl lg:text-6xl font-heading font-bold text-white tracking-tight leading-[1.1]">
               Six disciplines.{" "}

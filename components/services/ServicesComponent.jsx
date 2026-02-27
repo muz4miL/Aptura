@@ -7,19 +7,19 @@ const ServicesComponent = ({ icon, title, desc, link }) => {
   return (
     <Link
       href={link}
-      className="group relative flex flex-col p-8 rounded-2xl transition-all duration-400 bg-[#0a0d12] border border-white/[0.06] hover:border-[#00f0ff]/25 overflow-hidden"
+      className="group relative flex flex-col p-8 rounded-2xl transition-all duration-400 bg-[#0a0d12] border border-white/[0.06] hover:border-[#008080]/25 overflow-hidden"
     >
       {/* Hover glow */}
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at 30% 100%, rgba(0,240,255,0.05) 0%, transparent 60%)",
+            "radial-gradient(circle at 30% 100%, rgba(0,128,128,0.05) 0%, transparent 60%)",
         }}
       />
 
       {/* Icon */}
-      <div className="relative z-10 w-14 h-14 flex items-center justify-center mb-6 rounded-xl bg-white/[0.04] border border-white/[0.06] group-hover:border-[#00f0ff]/20 transition-all duration-300">
+      <div className="relative z-10 w-14 h-14 flex items-center justify-center mb-6 rounded-xl bg-white/[0.04] border border-white/[0.06] group-hover:border-[#008080]/20 transition-all duration-300">
         <Image
           src={icon}
           alt={title}
@@ -30,7 +30,7 @@ const ServicesComponent = ({ icon, title, desc, link }) => {
       </div>
 
       {/* Title */}
-      <h3 className="relative z-10 text-lg font-heading font-semibold text-white mb-3 group-hover:text-[#00f0ff] transition-colors duration-300">
+      <h3 className="relative z-10 text-lg font-heading font-semibold text-white mb-3 group-hover:text-[#f4e1c1] transition-colors duration-300">
         {title}
       </h3>
 
@@ -40,7 +40,7 @@ const ServicesComponent = ({ icon, title, desc, link }) => {
       </p>
 
       {/* Arrow */}
-      <div className="relative z-10 flex items-center gap-2 text-white/30 group-hover:text-[#00f0ff] transition-all duration-300">
+      <div className="relative z-10 flex items-center gap-2 text-white/30 group-hover:text-[#008080] transition-all duration-300">
         <span className="text-xs font-mono tracking-wider uppercase">
           Explore
         </span>

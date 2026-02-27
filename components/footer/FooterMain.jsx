@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaMagnifyingGlassLocation } from "react-icons/fa6";
+import { FaPhoneAlt, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 
 const FooterMain = () => {
   return (
@@ -41,12 +42,19 @@ const FooterMain = () => {
               rel="noopener noreferrer"
             >
               <svg
-                className="w-6 h-6 hover:text-[#00f0ff] transition"
+                className="w-6 h-6 hover:text-[#f4e1c1] transition"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98h.02c1.1 0 1.98-.88 1.98-1.98C6.98 4.38 6.1 3.5 4.98 3.5zM3 8.75h3.96V21H3V8.75zm6.25 0h3.8v1.68h.05c.53-.98 1.82-2.02 3.75-2.02 4.01 0 4.75 2.64 4.75 6.07V21H17v-5.63c0-1.34-.03-3.07-1.88-3.07-1.88 0-2.17 1.47-2.17 2.98V21H9.25V8.75z" />
               </svg>
+            </a>
+            <a
+              href="https://wa.me/923495773767"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaWhatsapp className="w-6 h-6 hover:text-[#25D366] transition" />
             </a>
           </div>
         </div>
@@ -68,7 +76,7 @@ const FooterMain = () => {
               <li key={item.name}>
                 <Link
                   href={item.path}
-                  className="hover:text-[#00f0ff] transition"
+                  className="hover:text-[#f4e1c1] transition"
                 >
                   {item.name}
                 </Link>
@@ -90,7 +98,7 @@ const FooterMain = () => {
               <li key={item.name}>
                 <Link
                   href={item.path}
-                  className="hover:text-[#00f0ff] transition"
+                  className="hover:text-[#f4e1c1] transition"
                 >
                   {item.name}
                 </Link>
@@ -110,8 +118,16 @@ const FooterMain = () => {
 
           <div className="space-y-4 text-sm text-[#94a3b8]">
             <div className="flex items-start gap-3">
-              <FaMagnifyingGlassLocation className="text-[#00f0ff] text-xl mt-1" />
+              <FaMagnifyingGlassLocation className="text-[#008080] text-xl mt-1" />
               <p>Peshawar, Pakistan</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <FaPhoneAlt className="text-[#008080] text-sm" />
+              <a href="tel:+923495773767" className="hover:text-[#f4e1c1] transition">+92 349 5773767</a>
+            </div>
+            <div className="flex items-center gap-3">
+              <FaEnvelope className="text-[#008080] text-sm" />
+              <a href="mailto:shayandera8888@gmail.com" className="hover:text-[#f4e1c1] transition">shayandera8888@gmail.com</a>
             </div>
           </div>
         </div>
@@ -131,7 +147,7 @@ const FooterMain = () => {
           />
           <p>
             &copy; {new Date().getFullYear()}{" "}
-            <Link href="/" className="hover:text-[#00f0ff]">
+            <Link href="/" className="hover:text-[#f4e1c1]">
               Aptura Tech Solutions
             </Link>
             . All rights reserved.
@@ -139,12 +155,12 @@ const FooterMain = () => {
         </div>
         <ul className="flex items-center gap-4">
           <li>
-            <Link href="/about" className="hover:text-[#00f0ff]">
+            <Link href="/about" className="hover:text-[#f4e1c1]">
               About
             </Link>
           </li>
           <li>
-            <Link href="/contact" className="hover:text-[#00f0ff]">
+            <Link href="/contact" className="hover:text-[#f4e1c1]">
               Contact
             </Link>
           </li>
