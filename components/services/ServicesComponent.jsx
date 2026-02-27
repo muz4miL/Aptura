@@ -7,6 +7,8 @@ const ServicesComponent = ({ icon, title, desc, link }) => {
   return (
     <div
       className="group relative flex flex-col p-8 rounded-2xl transition-all duration-400 bg-[#0a0d12] border border-white/[0.06] hover:border-[#008080]/25 overflow-hidden"
+      // Remove any navigation or link behavior
+      // No arrow or clickable overlay
     >
       {/* Hover glow */}
       <div
@@ -37,8 +39,7 @@ const ServicesComponent = ({ icon, title, desc, link }) => {
       <p className="relative z-10 text-[#94a3b8] text-sm leading-relaxed mb-6 flex-1">
         {desc}
       </p>
-
-      {/* ...arrow and explore removed... */}
+      {/* No arrow, no link, no explore text */}
     </div>
   );
 };

@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Link from "next/link";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -396,8 +396,7 @@ const ExpertiseMain = () => {
               const accent = accents[idx];
               const isHovered = hoveredIdx === idx;
               return (
-                <Link
-                  href={item.link}
+                <div
                   key={idx}
                   ref={(el) => { cardsRef.current[idx] = el; }}
                   className="group relative rounded-2xl border bg-[#090c10]/80 backdrop-blur-md will-change-transform h-full flex flex-col"
@@ -502,31 +501,7 @@ const ExpertiseMain = () => {
                     }}
                   />
 
-                  {/* Arrow Icon */}
-                  <div
-                    className="absolute top-6 right-6 transition-all duration-400"
-                    style={{
-                      color: isHovered ? accent : "rgba(255,255,255,0.1)",
-                      transform: isHovered
-                        ? "translate(0,0) rotate(-45deg)"
-                        : "translate(4px,4px)",
-                    }}
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-                      />
-                    </svg>
-                  </div>
-                </Link>
+                </div>
               );
             })}
           </div>
