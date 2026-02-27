@@ -5,8 +5,7 @@ import Image from "next/image";
 
 const ServicesComponent = ({ icon, title, desc, link }) => {
   return (
-    <Link
-      href={link}
+    <div
       className="group relative flex flex-col p-8 rounded-2xl transition-all duration-400 bg-[#0a0d12] border border-white/[0.06] hover:border-[#008080]/25 overflow-hidden"
     >
       {/* Hover glow */}
@@ -39,26 +38,8 @@ const ServicesComponent = ({ icon, title, desc, link }) => {
         {desc}
       </p>
 
-      {/* Arrow */}
-      <div className="relative z-10 flex items-center gap-2 text-white/30 group-hover:text-[#008080] transition-all duration-300">
-        <span className="text-xs font-mono tracking-wider uppercase">
-          Explore
-        </span>
-        <svg
-          className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
-        </svg>
-      </div>
-    </Link>
+      {/* ...arrow and explore removed... */}
+    </div>
   );
 };
 

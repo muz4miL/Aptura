@@ -26,6 +26,7 @@ const ServiceCard = ({ icon, title, desc, tag }) => (
       </div>
       <h3 className="text-[17px] font-heading font-semibold text-white mb-2.5 group-hover:text-[#f4e1c1] transition-colors duration-300">{title}</h3>
       <p className="text-[#94a3b8]/80 text-[13px] leading-relaxed">{desc}</p>
+      {/* No arrow, no link, no explore text */}
     </div>
   </div>
 );
