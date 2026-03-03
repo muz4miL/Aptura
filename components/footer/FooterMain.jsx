@@ -75,21 +75,18 @@ const FooterMain = () => {
             </p>
             <ul className="flex flex-col gap-2.5 text-sm">
               {[
-                { name: "Web Development", path: "/service/web-development" },
-                { name: "App Development", path: "/service/mobile-apps" },
-                { name: "UI/UX Design", path: "/service/ui-ux" },
-                { name: "Cyber Security", path: "/service/cybersecurity" },
-                { name: "Artificial Intelligence", path: "/service/ai" },
-                { name: "Internet Of Things", path: "/service/iot" },
-              ].map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.path}
-                    className="group/link flex items-center gap-2 text-[#94a3b8]/80 hover:text-white transition-colors duration-200"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-[#008080] opacity-0 group-hover/link:opacity-100 transition-opacity duration-200" />
-                    {item.name}
-                  </Link>
+                "Web Development",
+                "App Development",
+                "UI/UX Design",
+                "Cyber Security",
+                "Artificial Intelligence",
+                "Internet Of Things",
+              ].map((name) => (
+                <li key={name}>
+                  <span className="flex items-center gap-2 text-[#94a3b8]/80">
+                    <span className="w-1 h-1 rounded-full bg-[#008080]" />
+                    {name}
+                  </span>
                 </li>
               ))}
             </ul>
