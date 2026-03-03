@@ -12,6 +12,7 @@ import {
   FaHandshake,
 } from "react-icons/fa";
 import UnlockComponent from "@/components/UnlockComponent";
+import ServicesMain from "@/components/services/ServicesMain";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -725,6 +726,8 @@ export default function AboutUsPage() {
           </p>
         </div>
       </section>
+
+      <ServicesMain />
 
       <UnlockComponent />
     </div>

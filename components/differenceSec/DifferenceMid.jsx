@@ -31,9 +31,15 @@ const DifferenceMid = () => {
   }, []);
 
   return (
-    <div>
-      <h1
-        className="text-white/20 w-full font-heading font-bold lg:text-6xl md:text-5xl sm:text-3xl lg:leading-[1.2] md:leading-[1.3] sm:leading-[1.4] tracking-tight"
+    <div className="relative pl-6 sm:pl-10 border-l border-white/[0.06]">
+      {/* Vertical teal accent */}
+      <div
+        className="absolute left-0 top-0 w-[2px] rounded-full"
+        style={{ height: "40%", background: "linear-gradient(to bottom, #008080, transparent)" }}
+      />
+
+      <h2
+        className="text-white/[0.15] w-full font-heading font-bold lg:text-6xl md:text-5xl sm:text-3xl lg:leading-[1.15] md:leading-[1.3] sm:leading-[1.4] tracking-tight"
         ref={textRef}
       >
         {text.split(" ").map((word, i) => (
@@ -44,7 +50,13 @@ const DifferenceMid = () => {
             {word}
           </span>
         ))}
-      </h1>
+      </h2>
+
+      {/* Bottom detail row */}
+      <div className="flex items-center gap-6 mt-10">
+        <div className="h-px flex-1 max-w-[60px]" style={{ background: "linear-gradient(90deg, #008080, transparent)" }} />
+        <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#94a3b8]/40">Est. 2024 · Islamabad & Peshawar</span>
+      </div>
     </div>
   );
 };

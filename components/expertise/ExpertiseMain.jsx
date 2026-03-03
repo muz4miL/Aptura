@@ -202,123 +202,79 @@ const ExpertiseMain = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    let ctx;
-    /* One rAF ensures the DOM is fully painted after Next.js hydration */
-    const raf = requestAnimationFrame(() => {
+    const mm = gsap.matchMedia();
+    let raf;
+
+    raf = requestAnimationFrame(() => {
       const section = sectionRef.current;
       const header = headerRef.current;
       const glow = glowRef.current;
       const cards = cardsRef.current.filter(Boolean);
 
-      console.log("[Expertise] refs →", {
-        section: !!section,
-        header: !!header,
-        glow: !!glow,
-        cards: cards.length,
+      if (!section || !header || !glow || cards.length === 0) return;
+
+      /* ══ Desktop: full cinematic pin + scrub ══ */
+      mm.add("(min-width: 768px)", () => {
+        const ctx = gsap.context(() => {
+          gsap.set(glow, { autoAlpha: 0, scale: 0.2 });
+          gsap.set(header, { autoAlpha: 0, y: 40 });
+          cards.forEach((card, i) => {
+            const d = flyDirections[i];
+            gsap.set(card, { autoAlpha: 0, scale: 0.35, x: d.x, y: d.y, rotation: d.rotate });
+          });
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "+=3000",
+              scrub: 1,
+              pin: true,
+              pinSpacing: true,
+              anticipatePin: 1,
+            },
+          });
+
+          tl.to(glow, { autoAlpha: 1, scale: 1.5, duration: 1, ease: "power2.out" }, 0);
+          tl.to(header, { autoAlpha: 1, y: 0, duration: 1, ease: "power2.out" }, 0.3);
+          cards.forEach((card, i) => {
+            tl.to(card, { autoAlpha: 1, scale: 1, x: 0, y: 0, rotation: 0, duration: 1.5, ease: "back.out(1.2)" }, 0.8 + i * 0.2);
+          });
+          tl.to({}, { duration: 0.8 });
+          tl.to(glow, { autoAlpha: 0, scale: 2.5, duration: 0.6 }, "-=0.6");
+        }, section);
+        return () => ctx.revert();
       });
 
-      if (!section || !header || !glow || cards.length === 0) {
-        console.warn("[Expertise] Aborting – missing refs");
-        return;
-      }
+      /* ══ Mobile: no pin — simple scroll-triggered stagger fade-in ══ */
+      mm.add("(max-width: 767px)", () => {
+        const ctx = gsap.context(() => {
+          gsap.set(glow, { autoAlpha: 0 });
+          gsap.set(header, { autoAlpha: 0, y: 30 });
+          cards.forEach((card) => gsap.set(card, { autoAlpha: 0, y: 50, scale: 0.96 }));
 
-      ctx = gsap.context(() => {
-        /* ─── Step 1: Hide everything with gsap.set (immediate) ─── */
-        gsap.set(glow, { autoAlpha: 0, scale: 0.2 });
-        gsap.set(header, { autoAlpha: 0, y: 40 });
-        cards.forEach((card, i) => {
-          const d = flyDirections[i];
-          gsap.set(card, {
-            autoAlpha: 0,
-            scale: 0.35,
-            x: d.x,
-            y: d.y,
-            rotation: d.rotate,
-          });
-        });
-
-        /* ─── Step 2: Pinned scroll-driven timeline ─── */
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "+=3000",
-            scrub: 1,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            // markers: true,   // ← uncomment to debug
-          },
-        });
-
-        console.log("[Expertise] ScrollTrigger timeline created");
-
-        /* ─── Step 3: Animate IN using tl.to() ─── */
-
-        /* 3a  – Glow pulses (0 → 1) */
-        tl.to(
-          glow,
-          {
-            autoAlpha: 1,
-            scale: 1.5,
-            duration: 1,
-            ease: "power2.out",
-          },
-          0,
-        );
-
-        /* 3b  – Header slides in (0.3 → 1.3) */
-        tl.to(
-          header,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out",
-          },
-          0.3,
-        );
-
-        /* 3c  – Cards fan out from center, staggered (0.8 → varying) */
-        cards.forEach((card, i) => {
-          tl.to(
-            card,
-            {
-              autoAlpha: 1,
-              scale: 1,
-              x: 0,
-              y: 0,
-              rotation: 0,
-              duration: 1.5,
-              ease: "back.out(1.2)",
+          ScrollTrigger.create({
+            trigger: header,
+            start: "top 85%",
+            onEnter: () => {
+              gsap.to(header, { autoAlpha: 1, y: 0, duration: 0.8, ease: "power2.out" });
+              gsap.to(cards, {
+                autoAlpha: 1, y: 0, scale: 1,
+                duration: 0.65, stagger: 0.1,
+                ease: "power2.out", delay: 0.25,
+              });
             },
-            0.8 + i * 0.2,
-          );
-        });
+          });
+        }, section);
+        return () => ctx.revert();
+      });
 
-        /* 3d  – Hold phase so all cards stay visible */
-        tl.to({}, { duration: 0.8 });
-
-        /* 3e  – Glow fades during hold */
-        tl.to(
-          glow,
-          {
-            autoAlpha: 0,
-            scale: 2.5,
-            duration: 0.6,
-          },
-          "-=0.6",
-        );
-      }, section);
-
-      /* Force ScrollTrigger to re-measure after layout settles */
       ScrollTrigger.refresh();
-      console.log("[Expertise] ScrollTrigger.refresh() done");
     });
 
     return () => {
       cancelAnimationFrame(raf);
-      if (ctx) ctx.revert();
+      mm.revert();
     };
   }, []);
 
@@ -350,15 +306,15 @@ const ExpertiseMain = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative bg-[#050507]">
+    <section ref={sectionRef} className="relative bg-[#050507] overflow-hidden">
       <div
-        className="relative min-h-screen flex flex-col justify-center py-24 sm:py-16"
+        className="relative flex flex-col justify-center py-14 lg:py-20"
         style={{ perspective: "1000px" }}
       >
         {/* Center Glow */}
         <div
           ref={glowRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none z-0"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none z-0"
           style={{
             background:
               "radial-gradient(circle, rgba(0,128,128,0.1) 0%, rgba(196,149,106,0.05) 40%, transparent 70%)",

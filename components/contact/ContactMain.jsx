@@ -86,7 +86,7 @@ const ContactMain = () => {
           phone: formData.phone,
           subject: formData.subject,
           message: formData.message,
-          to_email: "shayandera8888@gmail.com",
+          to_email: "apturatechsolution@gmail.com",
           reply_to: formData.email,
         },
         "Cpn322BDQ9EFLPqiq",
@@ -672,7 +672,7 @@ const ContactMain = () => {
                     Contact details
                   </h3>
                   <div className="flex flex-col gap-5">
-                    {/* Islamabad */}
+                    {/* Location */}
                     <div
                       ref={(el) => {
                         contactItemsRef.current[0] = el;
@@ -683,35 +683,7 @@ const ContactMain = () => {
                         <FaBuilding className="text-[#008080]/70 group-hover:text-[#008080] text-xs transition-colors duration-300" />
                       </div>
                       <div>
-                        <p className="text-white text-sm font-medium">
-                          Islamabad HQ
-                        </p>
-                        <button
-                          onClick={scrollToMap}
-                          className="text-[#94a3b8]/60 text-xs mt-0.5 leading-relaxed hover:text-[#f4e1c1] transition-colors text-left"
-                        >
-                          Office 30, 2nd Floor, Aslam Business Square, E-11/2
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Peshawar */}
-                    <div
-                      ref={(el) => {
-                        contactItemsRef.current[1] = el;
-                      }}
-                      className="flex items-start gap-3.5 group"
-                    >
-                      <div className="mt-0.5 w-9 h-9 flex items-center justify-center rounded-xl bg-[#008080]/[0.06] border border-[#008080]/10 group-hover:border-[#008080]/25 group-hover:bg-[#008080]/[0.1] transition-all duration-300 flex-shrink-0">
-                        <FaBuilding className="text-[#008080]/70 group-hover:text-[#008080] text-xs transition-colors duration-300" />
-                      </div>
-                      <div>
-                        <p className="text-white text-sm font-medium">
-                          Peshawar Office
-                        </p>
-                        <p className="text-[#94a3b8]/60 text-xs mt-0.5 leading-relaxed">
-                          3rd Floor, Uhad Tower, Phase 3 Chowk
-                        </p>
+                        <p className="text-white text-sm font-medium">Peshawar, Pakistan</p>
                       </div>
                     </div>
 
@@ -738,10 +710,10 @@ const ContactMain = () => {
                         <FaPhoneAlt className="text-[#008080]/70 group-hover:text-[#008080] text-xs transition-colors duration-300" />
                       </div>
                       <a
-                        href="tel:+923495773767"
+                        href="tel:+923315085483"
                         className="text-[#94a3b8]/70 text-sm hover:text-[#f4e1c1] transition-colors"
                       >
-                        +92 349 5773767
+                        +92 331 5085483
                       </a>
                     </div>
 
@@ -756,10 +728,10 @@ const ContactMain = () => {
                         <FaEnvelope className="text-[#008080]/70 group-hover:text-[#008080] text-xs transition-colors duration-300" />
                       </div>
                       <a
-                        href="mailto:shayandera8888@gmail.com"
+                        href="mailto:apturatechsolution@gmail.com"
                         className="text-[#94a3b8]/70 text-sm hover:text-[#f4e1c1] transition-colors"
                       >
-                        shayandera8888@gmail.com
+                        apturatechsolution@gmail.com
                       </a>
                     </div>
 
@@ -774,7 +746,7 @@ const ContactMain = () => {
                         <FaWhatsapp className="text-[#25D366]/70 group-hover:text-[#25D366] text-xs transition-colors duration-300" />
                       </div>
                       <a
-                        href="https://wa.me/923495773767"
+                        href="https://wa.me/923315085483"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-[#94a3b8]/70 text-sm hover:text-[#25D366] transition-colors"

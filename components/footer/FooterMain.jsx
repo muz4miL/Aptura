@@ -50,7 +50,7 @@ const FooterMain = () => {
               </svg>
             </a>
             <a
-              href="https://wa.me/923495773767"
+              href="https://wa.me/923315085483"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -74,12 +74,9 @@ const FooterMain = () => {
               { name: "Internet Of Things (IoT)", path: "/service/iot" },
             ].map((item) => (
               <li key={item.name}>
-                <Link
-                  href={item.path}
-                  className="hover:text-[#f4e1c1] transition"
-                >
+                <span className="cursor-default">
                   {item.name}
-                </Link>
+                </span>
               </li>
             ))}
           </ul>
@@ -122,11 +119,11 @@ const FooterMain = () => {
             </div>
             <div className="flex items-center gap-3">
               <FaPhoneAlt className="text-[#008080] text-sm" />
-              <a href="tel:+923495773767" className="hover:text-[#f4e1c1] transition">+92 349 5773767</a>
+              <a href="tel:+923315085483" className="hover:text-[#f4e1c1] transition">+92 331 5085483</a>
             </div>
             <div className="flex items-center gap-3">
               <FaEnvelope className="text-[#008080] text-sm" />
-              <a href="mailto:shayandera8888@gmail.com" className="hover:text-[#f4e1c1] transition">shayandera8888@gmail.com</a>
+              <a href="mailto:apturatechsolution@gmail.com" className="hover:text-[#f4e1c1] transition">apturatechsolution@gmail.com</a>
             </div>
           </div>
         </div>
@@ -164,6 +161,20 @@ const FooterMain = () => {
             </Link>
           </li>
         </ul>
+      </div>
+
+      {/* Creator watermark */}
+      <div className="relative z-10 flex items-center justify-center pb-4 text-[11px] text-[#94a3b8]/40">
+        <span>Crafted by{" "}
+          <a
+            href="https://www.muzamilshiraz.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#5f9ea0]/60 hover:text-[#f4e1c1] transition-colors duration-300"
+          >
+            Muzamil Shiraz
+          </a>
+        </span>
       </div>
     </footer>
   );

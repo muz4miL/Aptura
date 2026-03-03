@@ -134,79 +134,65 @@ const HeroPic = () => {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover scale-105"
       >
-        <source src="/heroVideo.mp4" type="video/mp4" />
+        <source src="/HeroVideo2.mp4" type="video/mp4" />
       </video>
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050507]/50 via-[#050507]/10 to-[#050507]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/30 via-transparent to-[#050507]/30" />
+      {/* Very light uniform darkening so the video pops */}
+      <div className="absolute inset-0" style={{ background: "rgba(5,5,7,0.28)" }} />
 
-      {/* Dark vignette behind text area */}
+      {/* Heavy fade only at the bottom third where text lives */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-[60%] pointer-events-none z-[1]"
+        className="absolute bottom-0 left-0 right-0 h-[70%] md:h-[55%] pointer-events-none z-[1]"
         style={{
           background:
-            "linear-gradient(to top, rgba(5,5,7,0.95) 0%, rgba(5,5,7,0.7) 40%, rgba(5,5,7,0) 100%)",
+            "linear-gradient(to top, rgba(5,5,7,1) 0%, rgba(5,5,7,0.88) 30%, rgba(5,5,7,0.5) 55%, transparent 100%)",
         }}
       />
 
-      {/* ═══ Content — pinned to bottom ═══ */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 px-6 md:px-16 lg:px-24 pb-8 md:pb-14">
-        <div className="max-w-6xl mx-auto">
-          {/* Decorative accent line */}
-          <div
-            ref={lineRef}
-            className="w-16 h-[1.5px] mb-7"
-            style={{
-              background:
-                "linear-gradient(90deg, #f4e1c1, rgba(0,128,128,0.4))",
-            }}
-          />
+      {/* Top nav fade */}
+      <div
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-[1]"
+        style={{ background: "linear-gradient(to bottom, rgba(5,5,7,0.7) 0%, transparent 100%)" }}
+      />
 
-          {/* Headline — clip-reveal word by word */}
+      {/* ═══ Content ═══ */}
+      <div className="absolute inset-0 z-10 flex flex-col justify-end px-5 md:px-16 lg:px-24 pb-6 sm:pb-10 md:pb-20">
+        <div className="max-w-6xl mx-auto w-full">
+
+          {/* Headline */}
           <h1
             ref={headlineRef}
-            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] text-white"
-            style={{
-              textShadow: "0px 4px 20px rgba(0,0,0,0.7)",
-              perspective: "800px",
-            }}
+            className="font-heading font-bold tracking-tight leading-[1.05] text-white"
+            style={{ fontSize: "clamp(1.9rem,6vw,5.5rem)", perspective: "800px" }}
           >
-            {/* Each word wrapped in overflow-hidden container for clip reveal */}
-            <span className="inline-block overflow-hidden mr-[0.22em] align-bottom">
-              <span className="word-inner inline-block will-change-transform">
-                Intelligence,
-              </span>
+            <span className="inline-block overflow-hidden mr-[0.22em] align-bottom pb-[0.28em]">
+              <span className="word-inner inline-block will-change-transform">Intelligence,</span>
             </span>
-            <span className="relative inline-block overflow-hidden align-bottom">
-              <span className="word-inner inline-block gradient-text will-change-transform">
-                Engineered.
-              </span>
-              {/* Shimmer sweep overlay */}
+            <span className="relative inline-block overflow-hidden align-bottom pb-[0.28em]">
+              <span className="word-inner inline-block gradient-text will-change-transform">Engineered.</span>
               <span
                 ref={shimmerRef}
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                  background:
-                    "linear-gradient(105deg, transparent 30%, rgba(244,225,193,0.25) 45%, rgba(255,255,255,0.15) 50%, rgba(244,225,193,0.25) 55%, transparent 70%)",
+                  background: "linear-gradient(105deg,transparent 30%,rgba(244,225,193,0.3) 45%,rgba(255,255,255,0.2) 50%,rgba(244,225,193,0.3) 55%,transparent 70%)",
                   mixBlendMode: "screen",
                 }}
               />
             </span>
           </h1>
 
-          {/* Subtitle — word-by-word blur-to-sharp deblur */}
+          {/* Subtitle */}
           <p
             ref={subtitleRef}
-            className="max-w-xl mt-5 leading-relaxed"
-            style={{ textShadow: "0px 2px 10px rgba(0,0,0,0.5)" }}
+            className="max-w-lg mt-2 sm:mt-4 leading-relaxed"
+            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6)" }}
           >
             {subtitleText.split(" ").map((word, i) => (
               <span
                 key={i}
-                className="sub-word inline-block text-white/70 text-sm sm:text-base md:text-lg mr-[0.28em] will-change-transform"
+                className="sub-word inline-block text-white/60 text-sm sm:text-base md:text-[1.05rem] mr-[0.28em] will-change-transform"
                 style={{ visibility: "hidden" }}
               >
                 {word}
@@ -215,52 +201,49 @@ const HeroPic = () => {
           </p>
 
           {/* CTA row */}
-          <div ref={ctaRef} className="flex flex-wrap gap-3 mt-7">
+          <div ref={ctaRef} className="flex flex-wrap gap-3 mt-4 sm:mt-6 md:mt-8">
             <Link
               href="/contact"
               ref={btnRef}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              className="cta-btn px-7 py-3 bg-[#f4e1c1] text-[#050507] font-heading font-semibold text-sm rounded-lg glow-btn transition-all duration-200"
-              style={{ visibility: "hidden" }}
+              className="cta-btn group relative overflow-hidden px-8 py-3.5 font-heading font-semibold text-[#050507] text-sm rounded-xl glow-btn transition-all duration-300"
+              style={{ background: "#f4e1c1", visibility: "hidden" }}
             >
-              Let&apos;s Talk
+              <span className="relative z-10 flex items-center gap-2">
+                Let&apos;s Talk
+                <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              </span>
             </Link>
 
             <Link
-              href="/case-studies"
-              className="cta-btn px-7 py-3 border border-white/20 text-white/90 font-heading font-medium text-sm rounded-lg hover:border-[#008080]/40 hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
-              style={{ visibility: "hidden" }}
+              href="/about"
+              className="cta-btn flex items-center gap-2 px-8 py-3.5 font-heading font-medium text-white/85 text-sm rounded-xl transition-all duration-300 hover:text-white hover:border-[#008080]/50"
+              style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.12)", visibility: "hidden" }}
             >
               Explore Our Work
             </Link>
           </div>
-        </div>
-      </div>
 
-      {/* Marquee strip */}
-      <div
-        ref={marqueeRef}
-        className="absolute bottom-0 left-0 right-0 z-10 overflow-hidden border-t border-white/5 bg-[#050507]/80 backdrop-blur-sm"
-        style={{ visibility: "hidden" }}
-      >
-        <div className="animate-marquee flex whitespace-nowrap py-2.5 text-white/20 font-heading text-[11px] uppercase tracking-[0.3em]">
-          {[...Array(3)].map((_, i) => (
-            <span key={i} className="flex items-center">
-              <span className="mx-6">Software Engineering</span>
-              <span className="mx-2 text-[#f4e1c1]/30">&#x2022;</span>
-              <span className="mx-6">AI &amp; Machine Learning</span>
-              <span className="mx-2 text-[#008080]/30">&#x2022;</span>
-              <span className="mx-6">Cloud Architecture</span>
-              <span className="mx-2 text-[#f4e1c1]/30">&#x2022;</span>
-              <span className="mx-6">Cybersecurity</span>
-              <span className="mx-2 text-[#008080]/30">&#x2022;</span>
-              <span className="mx-6">UI/UX Design</span>
-              <span className="mx-2 text-[#f4e1c1]/30">&#x2022;</span>
-              <span className="mx-6">IoT Solutions</span>
-              <span className="mx-2 text-[#008080]/30">&#x2022;</span>
-            </span>
-          ))}
+          {/* Stat pills row */}
+          <div ref={marqueeRef} className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-4 mt-3 sm:mt-5 md:mt-8" style={{ visibility: "hidden" }}>
+            {[
+              ["10+", "Projects"],
+              ["7", "Team Members"],
+              ["100%", "Client Retention"],
+              ["20+", "Tech Stacks"],
+            ].map(([num, lbl]) => (
+              <div
+                key={lbl}
+                className="flex items-center gap-2.5 px-4 py-2 rounded-full"
+                style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.1)" }}
+              >
+                <span className="font-heading font-bold text-[#f4e1c1] text-sm">{num}</span>
+                <span className="text-white/40 text-xs font-mono tracking-wider uppercase">{lbl}</span>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </div>

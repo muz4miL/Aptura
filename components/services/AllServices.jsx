@@ -4,32 +4,75 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 
+/* ── Inline SVG icons for services with broken images ── */
+const CyberIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+    <rect x="5" y="11" width="14" height="10" rx="2" />
+    <path d="M8 11V7a4 4 0 1 1 8 0v4" />
+    <circle cx="12" cy="16" r="1.5" />
+    <path d="M12 17.5V19" />
+  </svg>
+);
+
+const UiUxIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+    <rect x="3" y="3" width="18" height="14" rx="2" />
+    <path d="M3 9h18" />
+    <circle cx="6" cy="6" r="0.5" fill="currentColor" />
+    <circle cx="8.5" cy="6" r="0.5" fill="currentColor" />
+    <circle cx="11" cy="6" r="0.5" fill="currentColor" />
+    <rect x="6" y="12" width="5" height="3" rx="0.5" />
+    <path d="M13 12h5M13 14h3" />
+    <path d="M8 20l4-3 4 3" />
+  </svg>
+);
+
+const IoTIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+    <path d="M5.2 12.5C3.8 11.3 3 9.5 3 7.5a7 7 0 0 1 14 0c0 2-0.8 3.8-2.2 5" />
+    <path d="M7.5 10.5a3.5 3.5 0 0 1 5 0" />
+    <circle cx="10" cy="13" r="1" fill="currentColor" />
+    <path d="M10 14v3" />
+    <path d="M10 17h-4v3h8v-3h-4z" />
+    <circle cx="6" cy="20" r="1" />
+    <circle cx="10" cy="20" r="1" />
+    <circle cx="14" cy="20" r="1" />
+    <path d="M17 7l2.5-2M19.5 5l1 2M19.5 5l2-0.5" />
+    <circle cx="20" cy="8" r="2" />
+    <path d="M19 9.5l-1 1" />
+  </svg>
+);
+
 const services = [
   { title: "AI & Machine Learning", desc: "Custom AI models, automation pipelines, and intelligent systems that learn and improve continuously.", icon: "/images/services/ai_service.webp", tag: "Intelligence" },
   { title: "App Development", desc: "Cross-platform and native mobile apps built for performance, scale, and seamless user experience.", icon: "/images/services/mobileDevService.webp", tag: "Mobile" },
   { title: "Web Development", desc: "Full-stack web applications, portals, and e-commerce platforms engineered for speed and reliability.", icon: "/images/services/webDevService.webp", tag: "Full-Stack" },
-  { title: "Cybersecurity", desc: "End-to-end security audits, threat detection, and zero-trust architecture implementation.", icon: "/images/services/it_consulting.webp", tag: "Security" },
-  { title: "UI/UX Design", desc: "Research-driven design systems, prototyping, and interfaces that convert visitors into customers.", icon: "/images/services/software_development.webp", tag: "Design" },
-  { title: "IoT Solutions", desc: "Connected device ecosystems, edge computing, and real-time monitoring dashboards.", icon: "/images/services/ioT.webp", tag: "Connected" },
+  { title: "Cybersecurity", desc: "End-to-end security audits, threat detection, and zero-trust architecture implementation.", icon: "svg:cyber", tag: "Security" },
+  { title: "UI/UX Design", desc: "Research-driven design systems, prototyping, and interfaces that convert visitors into customers.", icon: "svg:uiux", tag: "Design" },
+  { title: "IoT Solutions", desc: "Connected device ecosystems, edge computing, and real-time monitoring dashboards.", icon: "svg:iot", tag: "Connected" },
 ];
 
-const ServiceCard = ({ icon, title, desc, tag }) => (
-  <div className="group relative flex flex-col justify-between flex-shrink-0 w-[340px] h-[280px] p-7 rounded-2xl bg-[#0a0d14] border border-white/[0.06] hover:border-[#008080]/20 overflow-hidden transition-all duration-500 cursor-default select-none">
-    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(ellipse at 20% 80%, rgba(0,128,128,0.07) 0%, transparent 60%)" }} />
-    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008080]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    <div className="relative z-10">
-      <div className="flex items-center justify-between mb-5">
-        <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.06] group-hover:border-[#008080]/20 group-hover:bg-[#008080]/[0.04] transition-all duration-300">
-          <Image src={icon} alt={title} width={28} height={28} className="w-7 h-7 object-contain opacity-60 group-hover:opacity-100 transition duration-300" />
+const svgMap = { "svg:cyber": CyberIcon, "svg:uiux": UiUxIcon, "svg:iot": IoTIcon };
+
+const ServiceCard = ({ icon, title, desc, tag }) => {
+  const SvgComp = svgMap[icon];
+  return (
+    <div className="group relative flex flex-col justify-between flex-shrink-0 w-[340px] h-[280px] p-7 rounded-2xl bg-[#0a0d14] border border-white/[0.06] hover:border-[#008080]/20 overflow-hidden transition-all duration-500 cursor-default select-none">
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(ellipse at 20% 80%, rgba(0,128,128,0.07) 0%, transparent 60%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008080]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="relative z-10">
+        <div className="flex items-center justify-between mb-5">
+          <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.06] group-hover:border-[#008080]/20 group-hover:bg-[#008080]/[0.04] transition-all duration-300 text-white/60 group-hover:text-[#008080]">
+            {SvgComp ? <SvgComp /> : <Image src={icon} alt={title} width={28} height={28} className="w-7 h-7 object-contain opacity-60 group-hover:opacity-100 transition duration-300" />}
+          </div>
+          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#008080]/40 group-hover:text-[#008080]/70 transition-colors border border-[#008080]/10 px-2.5 py-1 rounded-full">{tag}</span>
         </div>
-        <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#008080]/40 group-hover:text-[#008080]/70 transition-colors border border-[#008080]/10 px-2.5 py-1 rounded-full">{tag}</span>
+        <h3 className="text-[17px] font-heading font-semibold text-white mb-2.5 group-hover:text-[#f4e1c1] transition-colors duration-300">{title}</h3>
+        <p className="text-[#94a3b8]/80 text-[13px] leading-relaxed">{desc}</p>
       </div>
-      <h3 className="text-[17px] font-heading font-semibold text-white mb-2.5 group-hover:text-[#f4e1c1] transition-colors duration-300">{title}</h3>
-      <p className="text-[#94a3b8]/80 text-[13px] leading-relaxed">{desc}</p>
-      {/* No arrow, no link, no explore text */}
     </div>
-  </div>
-);
+  );
+};
 
 const AllServices = () => {
   const ref = useRef(null);

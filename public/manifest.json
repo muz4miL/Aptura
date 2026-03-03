@@ -1,0 +1,21 @@
+{
+  "name": "Aptura Tech Solutions",
+  "short_name": "Aptura",
+  "description": "Software Development & AI Company — Engineering Intelligence",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050507",
+  "theme_color": "#008080",
+  "icons": [
+    {
+      "src": "/newLogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/newLogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -139,11 +139,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   background-color: #050507;
   color: #ffffff;
+  overflow-x: hidden;
 }
 
 /* Noise texture overlay — low z so it doesn't block content */
@@ -325,4 +327,138 @@ body {
 
 .services-carousel:hover {
   animation-play-state: paused;
+}
+
+/* ─── Team Page ─── */
+
+/* Spinning conic-gradient border for CEO card */
+@keyframes spin-border {
+  0%   { --border-angle: 0turn; }
+  100% { --border-angle: 1turn; }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0turn;
+  inherits: false;
+}
+
+.ceo-card-glow {
+  --border-angle: 0turn;
+  animation: spin-border 6s linear infinite;
+  background:
+    conic-gradient(from var(--border-angle),
+      #050507 20%,
+      #008080 40%,
+      #f4e1c1 50%,
+      #c4956a 60%,
+      #050507 80%
+    )
+    border-box;
+  border: 2px solid transparent;
+}
+
+/* Holographic badge shimmer */
+@keyframes holoBadge {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.holo-badge {
+  background: linear-gradient(
+    90deg,
+    #008080 0%,
+    #5f9ea0 25%,
+    #f4e1c1 50%,
+    #c4956a 75%,
+    #008080 100%
+  );
+  background-size: 200% auto;
+  animation: holoBadge 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Skill pill */
+.skill-pill {
+  background: rgba(0, 128, 128, 0.1);
+  border: 1px solid rgba(0, 128, 128, 0.3);
+  transition: all 0.25s ease;
+}
+.skill-pill:hover {
+  background: rgba(0, 128, 128, 0.25);
+  border-color: rgba(0, 128, 128, 0.7);
+  box-shadow: 0 0 12px rgba(0, 128, 128, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Leadership card hover */
+.leader-card {
+  background: rgba(10, 14, 23, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.4s ease;
+}
+.leader-card:hover {
+  border-color: rgba(0, 128, 128, 0.4);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(0, 128, 128, 0.12),
+    inset 0 0 40px rgba(0, 128, 128, 0.04);
+  transform: translateY(-8px);
+}
+
+/* Team member card */
+.team-card {
+  background: rgba(10, 14, 23, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.team-card:hover {
+  border-color: rgba(196, 149, 106, 0.4);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(196, 149, 106, 0.1);
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* Photo ring glow */
+.photo-ring-teal {
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.6), 0 0 30px rgba(0, 128, 128, 0.3);
+}
+.photo-ring-gold {
+  box-shadow: 0 0 0 3px rgba(196, 149, 106, 0.6), 0 0 30px rgba(196, 149, 106, 0.3);
+}
+
+/* Section line divider */
+.team-divider {
+  background: linear-gradient(90deg, transparent, #008080, #f4e1c1, #008080, transparent);
+  height: 1px;
+}
+
+/* Floating orb */
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -60px) scale(1.1); }
+  66%       { transform: translate(-30px, 30px) scale(0.92); }
+}
+.float-orb {
+  animation: floatOrb 12s ease-in-out infinite;
+}
+.float-orb-alt {
+  animation: floatOrb 16s ease-in-out infinite reverse;
+}
+
+/* Number rank tag */
+.rank-tag {
+  background: rgba(0, 128, 128, 0.15);
+  border: 1px solid rgba(0, 128, 128, 0.25);
+  color: rgba(0, 128, 128, 0.9);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
 }

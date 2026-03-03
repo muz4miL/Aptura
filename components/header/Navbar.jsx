@@ -118,30 +118,38 @@ const Navbar = () => {
     setActiveMenu(activeMenu === label ? null : label);
   };
 
-  const navItems = ["Solutions", "Method", "About", "Clients", "Contact"];
+  const navItems = ["Home", "About", "Clients", "Team", "Solutions", "Method", "Contact"];
 
   return (
     <header
-      className={`w-full fixed top-0 z-50 lg:px-20 sm:px-6 py-2 transition-all duration-300 text-white ${
+      className={`w-full relative md:fixed top-0 z-50 lg:px-20 sm:px-6 py-2 transition-all duration-300 text-white ${
         isScrolled || activeMenu ? "navbar-scrolled" : "navbar-transparent"
       }`}
     >
       <div className="max-w-[1300px] mx-auto flex items-center justify-between h-16 sm:h-[70px]">
         {/* Logo */}
         <div
-          className="flex items-center gap-2.5 cursor-pointer group"
+          className="flex items-center gap-3 md:gap-4 cursor-pointer group"
           onClick={() => router.push("/")}
         >
           <Image
-            src="/logo-rembg1.png"
+            src="/newLogo.png"
             alt="Aptura Tech Solutions Logo"
-            width={42}
-            height={42}
-            className="object-contain logo-glow transition-transform duration-300 group-hover:scale-105"
+            width={200}
+            height={200}
+            quality={100}
+            priority={true}
+            unoptimized={true}
+            className="w-auto h-10 md:h-12 lg:h-14 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
           />
-          <span className="text-xl lg:block sm:block sm:text-2xl md:hidden font-heading font-bold gradient-text">
-            Aptura
-          </span>
+          <div className="flex flex-col justify-center leading-none">
+            <span className="font-heading text-xl md:text-2xl font-bold tracking-[0.05em] text-white leading-none">
+              APTURA
+            </span>
+            <span className="text-[0.65rem] font-medium tracking-[0.3em] text-gray-400 mt-1 uppercase">
+              TECH SOLUTIONS
+            </span>
+          </div>
         </div>
 
         {/* Desktop Nav */}
@@ -152,23 +160,29 @@ const Navbar = () => {
               const isActive = activeMenu === label;
 
               if (!hasDropdown) {
-                const hrefMap = { About: "/about", Clients: "/clients", Contact: "/contact" };
+                const hrefMap = { Home: "/", About: "/about", Clients: "/clients", Team: "/team", Contact: "/contact" };
                 const href = hrefMap[label] || "#";
+                const isCurrentPage = pathname === href;
                 return (
                   <li key={label} className="relative">
                     <Link
                       href={href}
-                      className="nav-link flex items-center px-4 py-2 rounded-lg transition-all duration-200"
+                      className={`nav-link flex items-center px-4 py-2 rounded-lg transition-all duration-200 ${isCurrentPage ? "text-[#f4e1c1]" : ""}`}
                       onMouseEnter={() => {
                         clearTimeout(timeoutRef.current);
                         setActiveMenu(null);
                       }}
                     >
                       {label}
+                      {isCurrentPage && (
+                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-[2px] rounded-full bg-[#f4e1c1]" />
+                      )}
                     </Link>
                   </li>
                 );
               }
+
+              const isDropdownActive = (label === "Solutions" && pathname.startsWith("/service")) || (label === "Method" && pathname === "/methodology");
 
               return (
                 <li
@@ -180,9 +194,12 @@ const Navbar = () => {
                   <div
                     className={`nav-link flex items-center px-4 py-2 rounded-lg cursor-pointer transition-all duration-200 ${
                       isActive ? "nav-link-active" : ""
-                    }`}
+                    } ${isDropdownActive ? "text-[#f4e1c1]" : ""}`}
                   >
                     {label}
+                    {isDropdownActive && (
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-[2px] rounded-full bg-[#f4e1c1]" />
+                    )}
                     <MdArrowDropDown
                       className={`ml-0.5 text-lg transition-transform duration-200 ${
                         isActive ? "rotate-180" : ""
@@ -314,7 +331,7 @@ const Navbar = () => {
               const hasDropdown = label === "Solutions" || label === "Method";
 
               if (!hasDropdown) {
-                const hrefMap = { About: "/about", Clients: "/clients", Contact: "/contact" };
+                const hrefMap = { Home: "/", About: "/about", Clients: "/clients", Team: "/team", Contact: "/contact" };
                 const href = hrefMap[label] || "#";
                 return (
                   <li

@@ -2,15 +2,27 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 
 const UnlockComponent = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const rawY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const bgY = useSpring(rawY, { stiffness: 38, damping: 18, restDelta: 0.001 });
 
   return (
     <section ref={ref} className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: 'url("/images/cta-bg.jpg")' }} />
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url("/images/cta-bg.jpg")',
+          y: bgY,
+          scale: 1.3,
+          willChange: "transform",
+          translateZ: 0,
+        }}
+      />
       <div className="absolute inset-0 bg-[#050507]/70" />
       <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 120%, rgba(0,128,128,0.15) 0%, transparent 60%)" }} />
 
