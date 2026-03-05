@@ -7,6 +7,6 @@ export default function robots() {
         disallow: ["/api/", "/_next/"],
       },
     ],
-    sitemap: "https://aptura.tech/sitemap.xml",
+    sitemap: "https://apturatechsolutions.tech/sitemap.xml",
   };
 }

@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://aptura.tech";
+  const baseUrl = "https://apturatechsolutions.tech";
 
   const routes = [
     { path: "", priority: 1.0, changeFrequency: "weekly" },

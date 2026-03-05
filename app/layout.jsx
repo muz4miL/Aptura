@@ -8,7 +8,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import Loader from "@/components/Loader";
 
 export const metadata = {
-  metadataBase: new URL("https://aptura.tech"),
+  metadataBase: new URL("https://apturatechsolutions.tech"),
   title: {
     default: "Aptura Tech Solutions | Software Development & AI Company in Pakistan",
     template: "%s | Aptura Tech Solutions",
@@ -34,7 +34,7 @@ export const metadata = {
     "Peshawar tech company",
     "software house Pakistan",
   ],
-  authors: [{ name: "Aptura Tech Solutions", url: "https://aptura.tech" }],
+  authors: [{ name: "Aptura Tech Solutions", url: "https://apturatechsolutions.tech" }],
   creator: "Aptura Tech Solutions",
   publisher: "Aptura Tech Solutions",
   formatDetection: {
@@ -43,12 +43,12 @@ export const metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: "https://aptura.tech",
+    canonical: "https://apturatechsolutions.tech",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://aptura.tech",
+    url: "https://apturatechsolutions.tech",
     siteName: "Aptura Tech Solutions",
     title: "Aptura Tech Solutions | Software Development & AI Company",
     description:
@@ -92,8 +92,8 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Aptura Tech Solutions",
-    url: "https://aptura.tech",
-    logo: "https://aptura.tech/newLogo.png",
+    url: "https://apturatechsolutions.tech",
+    logo: "https://apturatechsolutions.tech/newLogo.png",
     description:
       "Software development company specializing in Web Development, App Development, AI Solutions, UI/UX Design, Cybersecurity, and IoT.",
     foundingDate: "2024",

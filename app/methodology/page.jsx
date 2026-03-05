@@ -6,12 +6,12 @@ export const metadata = {
     "Aptura Tech Solutions follows Agile and Scrum methodologies with structured sprints, continuous integration, and client-first collaboration for every project.",
   keywords: ["agile development", "scrum methodology", "software development process", "project management"],
   alternates: {
-    canonical: "https://aptura.tech/methodology",
+    canonical: "https://apturatechsolutions.tech/methodology",
   },
   openGraph: {
     title: "Our Development Methodology — Aptura Tech Solutions",
     description: "Agile, Scrum, and structured approach to software development.",
-    url: "https://aptura.tech/methodology",
+    url: "https://apturatechsolutions.tech/methodology",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };

@@ -6,12 +6,12 @@ export const metadata = {
     "From initial concept to production deployment — learn how Aptura Tech Solutions turns your ideas into fully launched digital products with speed and precision.",
   keywords: ["idea to launch", "product development", "MVP development", "startup development"],
   alternates: {
-    canonical: "https://aptura.tech/launch",
+    canonical: "https://apturatechsolutions.tech/launch",
   },
   openGraph: {
     title: "Idea to Launch — Aptura Tech Solutions",
     description: "We turn your ideas into reality, from concept to deployment.",
-    url: "https://aptura.tech/launch",
+    url: "https://apturatechsolutions.tech/launch",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };

@@ -6,12 +6,12 @@ export const metadata = {
     "Learn about Aptura Tech Solutions — a Peshawar-based software company on a mission to engineer intelligent digital solutions. Discover our story, values, core services, and the team driving innovation.",
   keywords: ["about Aptura Tech", "software company Pakistan", "tech startup Peshawar", "our mission"],
   alternates: {
-    canonical: "https://aptura.tech/about",
+    canonical: "https://apturatechsolutions.tech/about",
   },
   openGraph: {
     title: "About Aptura Tech Solutions",
     description: "Our mission, values, and the team driving digital innovation.",
-    url: "https://aptura.tech/about",
+    url: "https://apturatechsolutions.tech/about",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };

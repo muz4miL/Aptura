@@ -6,12 +6,12 @@ export const metadata = {
     "Our development approach combines clean architecture, test-driven development, and CI/CD pipelines to deliver scalable, maintainable software solutions.",
   keywords: ["software development approach", "clean architecture", "CI/CD", "test-driven development"],
   alternates: {
-    canonical: "https://aptura.tech/development",
+    canonical: "https://apturatechsolutions.tech/development",
   },
   openGraph: {
     title: "Development Approach — Aptura Tech Solutions",
     description: "Structured, collaborative, and focused on continuous improvement.",
-    url: "https://aptura.tech/development",
+    url: "https://apturatechsolutions.tech/development",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };

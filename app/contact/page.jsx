@@ -6,12 +6,12 @@ export const metadata = {
     "Ready to build something extraordinary? Contact Aptura Tech Solutions for a free consultation. Reach us in Peshawar & Islamabad, Pakistan or chat on WhatsApp.",
   keywords: ["contact Aptura", "hire software developers Pakistan", "free consultation", "Peshawar developer"],
   alternates: {
-    canonical: "https://aptura.tech/contact",
+    canonical: "https://apturatechsolutions.tech/contact",
   },
   openGraph: {
     title: "Contact Aptura Tech Solutions",
     description: "Let's discuss your project. Get a free consultation today.",
-    url: "https://aptura.tech/contact",
+    url: "https://apturatechsolutions.tech/contact",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };

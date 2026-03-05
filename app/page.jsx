@@ -20,13 +20,13 @@ export const metadata = {
     "Peshawar tech company",
   ],
   alternates: {
-    canonical: "https://aptura.tech",
+    canonical: "https://apturatechsolutions.tech",
   },
   openGraph: {
     title: "Aptura Tech Solutions | Engineering Intelligence",
     description:
       "Custom software, AI, web & app development. Trusted by businesses worldwide.",
-    url: "https://aptura.tech",
+    url: "https://apturatechsolutions.tech",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };

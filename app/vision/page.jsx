@@ -6,12 +6,12 @@ export const metadata = {
     "Aptura Tech Solutions envisions a future where intelligent software empowers every business. Discover our long-term vision for technology and digital innovation.",
   keywords: ["tech vision", "future of software", "digital innovation", "AI future"],
   alternates: {
-    canonical: "https://aptura.tech/vision",
+    canonical: "https://apturatechsolutions.tech/vision",
   },
   openGraph: {
     title: "Our Vision — Aptura Tech Solutions",
     description: "Shaping the future of technology and digital innovation.",
-    url: "https://aptura.tech/vision",
+    url: "https://apturatechsolutions.tech/vision",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
 };
